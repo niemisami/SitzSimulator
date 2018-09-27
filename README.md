@@ -1,4 +1,4 @@
-# IDGT 2018 project course - SitzSimulator
+# IGDT 2018 project course - SitzSimulator
 
 > Unity project for the Introduction to Game Development Tools course at the University of Turku
 
