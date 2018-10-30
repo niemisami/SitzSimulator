@@ -21,7 +21,7 @@ public class SongBookBehaviour : MonoBehaviour {
     private Vector3 padding = new Vector3(0F, 0.7F, 0F);
     private Vector3 rowPadding = new Vector3(0F, 1.22F, 0F);
     private Vector3 horisontalSpeedVector;
-    private float bpm = 80;
+    private float bpm = 124;
     private float horisontalSpeed;
     private float bars = 4;
     private float rows = 11;
