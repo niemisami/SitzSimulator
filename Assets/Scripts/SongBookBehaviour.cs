@@ -5,14 +5,13 @@ using UnityEngine.UI;
 
 public class SongBookBehaviour : MonoBehaviour {
 
-    //Audio variables, all audio stuff should be made into an own class... 
-    public List<AudioClip> clips;
+    //Audio variables for metronome
     public Button playSongButton;
-    public Dropdown dropdownSongList;
     public AudioClip audioClipMetronomeSound;
-    public AudioClip audioClipSong;
     public float volume = 1;
     private AudioSource audioSource;
+
+
 
     //Song timer variables
     public InputField bpmInput;
@@ -45,25 +44,8 @@ public class SongBookBehaviour : MonoBehaviour {
         bce.AddListener(playSong);
         playSongButton.onClick = bce;
 
-        //initialization for dropdown menu
-        var de = new Dropdown.DropdownEvent();
-        de.AddListener(selectSong);
-        dropdownSongList.onValueChanged = de;
-        dropdownSongList.ClearOptions();
-
-        //Adds the names of the songs to the dropdown menu
-        List<string> clipsString = new List<string>();
-        foreach (AudioClip clip in clips)
-        {
-            clipsString.Add(clip.name);
-        }
-        dropdownSongList.AddOptions(clipsString);
         audioSource = GetComponent<AudioSource>();
-        selectSong(0);
-
         startTime = Time.time;
-
-
 
         //Sets the starting position of the song timer
         StartPositionVector = GameObject.Find("Song book").transform.position - padding;
@@ -126,8 +108,6 @@ public class SongBookBehaviour : MonoBehaviour {
 
     private void playSong()//Is called when play song button is pressed
     {
-        audioSource.Stop();
-        audioSource.PlayOneShot(audioClipSong, volume);
         positionVector = StartPositionVector;
         rowPositionVector = StartPositionVector;
         rowCounter = 0;
@@ -135,13 +115,6 @@ public class SongBookBehaviour : MonoBehaviour {
         startTime = Time.time;
         elapsedTime = 0;
         counterTimeMetronome = 1;
-    }
-    private void selectSong(int i)//Is calles when a song is selected from dropdown menu
-    {
-        foreach (AudioClip clip in clips)
-        {
-            if (clip.name == dropdownSongList.options[dropdownSongList.value].text)
-                audioClipSong = clip;
-        }
+        AudioScript.playSong();//Calls a static funtion in AudioScript that plays the selected song
     }
 }
