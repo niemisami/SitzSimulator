@@ -18,13 +18,13 @@ public class SongBookBehaviour : MonoBehaviour {
     private Vector3 positionVector;
     private Vector3 rowPositionVector;
     private Vector3 StartPositionVector;
-    private Vector3 padding = new Vector3(0F, 0.2F, 0F);
-    private Vector3 rowPadding = new Vector3(0F, 0.4F, 0F);
+    private Vector3 padding = new Vector3(0F, 0.7F, 0F);
+    private Vector3 rowPadding = new Vector3(0F, 1.22F, 0F);
     private Vector3 horisontalSpeedVector;
     private float bpm = 80;
     private float horisontalSpeed;
     private float bars = 4;
-    private float rows = 24;
+    private float rows = 11;
     private float rowCounter = 0;
     private int counterTime=1;
     private int counterTimeMetronome = 1;
@@ -58,25 +58,29 @@ public class SongBookBehaviour : MonoBehaviour {
 	void Update () {
 
         elapsedTime = Time.time - startTime;
+        
         horisontalSpeed = 10*((bpm / bars) / 60) * (Time.deltaTime);
         horisontalSpeedVector = new Vector3(horisontalSpeed, 0F, 0F);
 
-        if (elapsedTime  / counterTimeMetronome  >= ((60) / (bpm)))//metronome sound every beat
+
+
+        if (elapsedTime / counterTimeMetronome >= ((60) / (bpm)))//metronome sound every beat
         {
             print("Tick");
             counterTimeMetronome++;
             audioSource.PlayOneShot(audioClipMetronomeSound, volume);
         }
 
+
         if (rowCounter >= rows && (elapsedTime / counterTime >= ((60) / (bpm / bars))))//move the song timer to the top
-            {
+        {
             counterTime++;
             rowCounter = 0;
             rowPositionVector = StartPositionVector;
             positionVector = rowPositionVector;
             positionVector = positionVector + horisontalSpeedVector;
             transform.position = positionVector;
-        }     
+        }
         else if (elapsedTime / counterTime >= ((60) / (bpm / bars)))//move to next row
         {
             counterTime++;
@@ -91,6 +95,8 @@ public class SongBookBehaviour : MonoBehaviour {
             positionVector = positionVector + horisontalSpeedVector;
             transform.position = positionVector;
         }
+
+        
     }
 
     
