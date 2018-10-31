@@ -68,16 +68,21 @@ public class ArrowEventController
     {
       return endAction;
     }
-    displayNextNotes(3);
     string nextCharacter = songCorrectCharacters[nextIndex];
     nextIndex++;
-
-    KeyCode expectedKeyCode = characterKeyMap[nextCharacter];
-    if (pressedKey == expectedKeyCode)
+    displayNextNotes(3);
+    try {
+      KeyCode expectedKeyCode = characterKeyMap[nextCharacter];
+      if (pressedKey == expectedKeyCode)
+      {
+        return keyActionMap[expectedKeyCode];
+      }
+    } 
+    catch (KeyNotFoundException)
     {
-      oldStrokes[nextIndex] = nextCharacter;
-      return keyActionMap[expectedKeyCode];
+      Debug.LogWarning("Pause");
     }
+    oldStrokes[nextIndex] = nextCharacter;
     return failAction;
   }
 
