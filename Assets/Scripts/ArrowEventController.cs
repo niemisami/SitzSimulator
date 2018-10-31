@@ -110,7 +110,7 @@ public class ArrowEventController
       Debug.LogError(e.ToString());
       nextText += " Pause";
     }
-    catch (IndexOutOfRangeException e)  // CS0168
+    catch (IndexOutOfRangeException)  // CS0168
     {
       nextText += "END";
     }
