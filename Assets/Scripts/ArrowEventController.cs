@@ -68,9 +68,9 @@ public class ArrowEventController
     {
       return endAction;
     }
+    displayNextNotes(3);
     string nextCharacter = songCorrectCharacters[nextIndex];
     nextIndex++;
-    displayNextNotes(3);
 
     KeyCode expectedKeyCode = characterKeyMap[nextCharacter];
     if (pressedKey == expectedKeyCode)
@@ -84,18 +84,20 @@ public class ArrowEventController
   /*
   * Visual aid for displaying what should be pressed next
   **/
-  void displayNextNotes(int display)
+  void displayNextNotes(int noteCount)
   {
     string nextCharacter = songCorrectCharacters[nextIndex];
     string nextText = "";
     int hintIndex = nextIndex - 1;
     try
     {
-      for (int i = 0; i < display; i++)
+      for (int i = 0; i < noteCount; i++)
       {
         nextText += characterKeyMap.ContainsKey(songCorrectCharacters[++hintIndex])
-          ? characterKeyMap[songCorrectCharacters[hintIndex]].ToString()
-          : " Pause" + " ";
+          // FIXME: Really dirty way of removing word Arrow from KeyCode string
+          ? characterKeyMap[songCorrectCharacters[hintIndex]].ToString().Substring(0, characterKeyMap[songCorrectCharacters[hintIndex]].ToString().Length - 5)
+          : "Pause";
+        nextText += " ";
       }
     }
     catch (KeyNotFoundException e)
@@ -105,10 +107,17 @@ public class ArrowEventController
     }
     catch (IndexOutOfRangeException e)  // CS0168
     {
-      nextText += " END";
+      nextText += "END";
     }
 
-    nextText += "...";
+    if (hintIndex == songCorrectCharacters.Length)
+    {
+      nextText = "END";
+    }
+    else
+    {
+      nextText += "...";
+    }
     nextNotesText.text = nextText;
   }
 
