@@ -18,7 +18,7 @@ public class SongBookBehaviour : MonoBehaviour {
     private Vector3 positionVector;
     private Vector3 rowPositionVector;
     private Vector3 StartPositionVector;
-    private Vector3 padding = new Vector3(0F, 0.7F, 0F);
+    private Vector3 padding = new Vector3(0F, 1.5F, 0F);
     private Vector3 rowPadding = new Vector3(0F, 1.22F, 0F);
     private Vector3 horisontalSpeedVector;
     private float bpm = 124;
@@ -32,6 +32,9 @@ public class SongBookBehaviour : MonoBehaviour {
     private float elapsedTime;
 
     private GameManagerScript GMS;
+
+
+    private Vector3 startPositionTemp;
 
     // Use this for initialization
     void Start () {
@@ -53,7 +56,7 @@ public class SongBookBehaviour : MonoBehaviour {
         startTime = Time.time;
 
         //Sets the starting position of the song timer
-        StartPositionVector = GameObject.Find("Song book").transform.position - padding;
+        StartPositionVector = transform.position;//GameObject.Find("Song book").transform.position;
         positionVector = StartPositionVector;
         rowPositionVector = StartPositionVector;
 
@@ -65,13 +68,18 @@ public class SongBookBehaviour : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (GMS.countDownDone == false)//resets the time while count down
+        if (GMS.GameIsActive == false)//resets the time while count down and resets position
         {
             elapsedTime = 0;
             startTime = Time.time;
+            StartPositionVector = transform.position;// GameObject.Find("Song book").transform.position - padding;
+            positionVector = StartPositionVector;
+            rowPositionVector = StartPositionVector;
+            startPositionTemp = GameObject.Find("Song book").transform.position;
+
         }
 
-        if (GMS.countDownDone == true)
+        if (GMS.GameIsActive == true)
         {
 
             if (elapsedTime == 0)//plays the first metronome click and starts helan går
@@ -79,6 +87,7 @@ public class SongBookBehaviour : MonoBehaviour {
                 audioSource.PlayOneShot(audioClipMetronomeSound, volume);
                 AudioScript.playSong();//Calls a static funtion in AudioScript that plays the selected song
             }
+
             
 
             elapsedTime = Time.time - startTime;
@@ -102,27 +111,29 @@ public class SongBookBehaviour : MonoBehaviour {
                 rowCounter = 0;
                 rowPositionVector = StartPositionVector;
                 positionVector = rowPositionVector;
-                positionVector = positionVector + horisontalSpeedVector;
-                transform.position = positionVector;
+                MoveHorisontal();
             }
             else if (elapsedTime / counterTime >= ((60) / (bpm / bars)))//move to next row
             {
                 counterTime++;
                 rowPositionVector = rowPositionVector - rowPadding;
                 positionVector = rowPositionVector;
-                positionVector = positionVector + horisontalSpeedVector;
-                transform.position = positionVector;
+                MoveHorisontal();
                 rowCounter++;
             }
             else//move horisontal
             {
-                positionVector = positionVector + horisontalSpeedVector;
-                transform.position = positionVector;
+                MoveHorisontal();
             }
 
         }
 
         
+    }
+    private void MoveHorisontal()
+    {
+        positionVector = positionVector + horisontalSpeedVector;
+        transform.position = positionVector + GameObject.Find("Song book").transform.position - startPositionTemp;
     }
 
     

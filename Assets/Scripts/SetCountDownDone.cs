@@ -9,6 +9,6 @@ public class SetCountDownDone : MonoBehaviour {
     public void setCountDown()
     {
         GMS = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
-        GMS.countDownDone = true;
+        GMS.GameIsActive = true;
     }
 }

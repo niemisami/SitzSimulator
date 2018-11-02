@@ -32,7 +32,7 @@ public class PlayerBehaviourScript: MonoBehaviour {
     void Update()
     {
 
-        if (GMS.countDownDone == true)
+        if (GMS.GameIsActive == true)
         {
 
 

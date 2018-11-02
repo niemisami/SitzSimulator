@@ -442,7 +442,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 94166440}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: 0}
+  m_LocalPosition: {x: -2, y: 0, z: 0}
   m_LocalScale: {x: 0.020000001, y: 7.8000007, z: 1}
   m_Children: []
   m_Father: {fileID: 1159507800}
@@ -589,7 +589,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 221196977}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.020000001, y: 7.8000007, z: 1}
   m_Children: []
   m_Father: {fileID: 1159507800}
@@ -662,7 +662,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 239100887}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1, y: 0, z: 0}
   m_LocalScale: {x: 0.020000001, y: 7.8000007, z: 1}
   m_Children: []
   m_Father: {fileID: 1159507800}
@@ -901,7 +901,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 548122732}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4, y: 0, z: 0}
+  m_LocalPosition: {x: 2, y: 0, z: 0}
   m_LocalScale: {x: 0.020000001, y: 7.8000007, z: 1}
   m_Children: []
   m_Father: {fileID: 1159507800}
@@ -1615,8 +1615,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1068314836}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.2, y: -0.36842108, z: 0}
-  m_LocalScale: {x: 0.4, y: 2.5789475, z: 1}
+  m_LocalPosition: {x: -1.972, y: 3.54, z: 0}
+  m_LocalScale: {x: 0.058190316, y: 0.32227817, z: 1}
   m_Children: []
   m_Father: {fileID: 1159507800}
   m_RootOrder: 0
@@ -1655,7 +1655,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: 1c61e7d84ddf1cb488dbb6864752ae58, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1698,8 +1698,8 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
+  Priority: 0
+  DopplerLevel: 0
   MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
@@ -1936,7 +1936,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c8489e6e65e56c4ca7892e57912dca3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  countDownDone: 0
+  GameIsActive: 0
 --- !u!4 &1126525413
 Transform:
   m_ObjectHideFlags: 0
@@ -1960,6 +1960,7 @@ GameObject:
   - component: {fileID: 1159507800}
   - component: {fileID: 1159507801}
   - component: {fileID: 1159507802}
+  - component: {fileID: 1159507803}
   m_Layer: 0
   m_Name: Song book
   m_TagString: Untagged
@@ -1974,7 +1975,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1159507799}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.6, y: -1, z: 0}
+  m_LocalPosition: {x: -0.63, y: -7.99, z: 0}
   m_LocalScale: {x: 2.5, y: 1.9, z: 1}
   m_Children:
   - {fileID: 1068314837}
@@ -2047,6 +2048,22 @@ MonoBehaviour:
   nextNotesText: {fileID: 705138588}
   songMappedCharacters: []
   allowedKeys: 
+--- !u!114 &1159507803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1159507799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58d1ad27dcdb2ba4682af7484f6731e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effectAmount: 0.05
+  verticalMovementAmount: 0.01
+  verticalRotationAmount: 0
+  horisontalRotationAmount: 0
+  verticalMovement: 1
 --- !u!1 &1179915675
 GameObject:
   m_ObjectHideFlags: 0
@@ -3815,7 +3832,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1834544255}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3, y: 0, z: 0}
+  m_LocalPosition: {x: 1, y: 0, z: 0}
   m_LocalScale: {x: 0.020000001, y: 7.8000007, z: 1}
   m_Children: []
   m_Father: {fileID: 1159507800}
@@ -4003,7 +4020,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   spreadCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -4015,7 +4032,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -4027,7 +4044,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
 --- !u!4 &1917006958
 Transform:
   m_ObjectHideFlags: 0
