@@ -17,83 +17,96 @@ public class PlayerBehaviourScript: MonoBehaviour {
     public float centerPiontWidth = 4F; 
     public float playerSpeed = 0.4F;
 
- 
+
+    private GameManagerScript GMS;
+
+
     // Use this for initialization
     void Start () {
+
+        GMS = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
         balanceText.text = "";
         centerPointOscillationAmount = 0.1F * centerPointSpeed;
 }
-	// Update is called once per frame
-	void Update () {
-        //Sets the balance center point
-        if (centerPointSpeed==0)
+    // Update is called once per frame
+    void Update()
+    {
+
+        if (GMS.countDownDone == true)
         {
-            centerPointOscillationAmount = 0.1F * centerPointSpeed;
-        }
-        if (centerPointOscillationAmount == 0)
-        {
-            centerPointOscillationAmount = 0.1F * centerPointSpeed;
-        }
-        if (centerPoint >= centerPointEdges)
-        {
-            centerPointOscillationAmount = -0.1F* centerPointSpeed;
-        }
-        else if (centerPoint < -centerPointEdges)
-        {
-            centerPointOscillationAmount = 0.1F* centerPointSpeed;
-        }
-        centerPoint = centerPoint + centerPointOscillationAmount;
-        //Calculates rotation
-        if (rotationAmount >= centerPoint)
-        {
-            if (rotationAmount <centerPiontWidth)
+
+
+
+            //Sets the balance center point
+            if (centerPointSpeed == 0)
             {
-                rotationAmount = rotationAmount + difficulty / centerPiontWidth;
+                centerPointOscillationAmount = 0.1F * centerPointSpeed;
             }
-            else
+            if (centerPointOscillationAmount == 0)
             {
-                rotationAmount = rotationAmount + difficulty / rotationAmount;
+                centerPointOscillationAmount = 0.1F * centerPointSpeed;
             }
-        }
-        if (rotationAmount < centerPoint)
-        {
-            if (rotationAmount > -centerPiontWidth)
+            if (centerPoint >= centerPointEdges)
             {
-                rotationAmount = rotationAmount + difficulty /-centerPiontWidth;
+                centerPointOscillationAmount = -0.1F * centerPointSpeed;
             }
-            else
+            else if (centerPoint < -centerPointEdges)
             {
-                rotationAmount = rotationAmount + difficulty / rotationAmount;
+                centerPointOscillationAmount = 0.1F * centerPointSpeed;
             }
-        }
-        
-        //Player movement
-        if (Input.GetKey(KeyCode.A))
-        {
-            rotationAmount = rotationAmount + playerSpeed*difficulty;
-        }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            rotationAmount = rotationAmount - playerSpeed*difficulty;
+            centerPoint = centerPoint + centerPointOscillationAmount;
+            //Calculates rotation
+            if (rotationAmount >= centerPoint)
+            {
+                if (rotationAmount < centerPiontWidth)
+                {
+                    rotationAmount = rotationAmount + difficulty / centerPiontWidth;
+                }
+                else
+                {
+                    rotationAmount = rotationAmount + difficulty / rotationAmount;
+                }
+            }
+            if (rotationAmount < centerPoint)
+            {
+                if (rotationAmount > -centerPiontWidth)
+                {
+                    rotationAmount = rotationAmount + difficulty / -centerPiontWidth;
+                }
+                else
+                {
+                    rotationAmount = rotationAmount + difficulty / rotationAmount;
+                }
+            }
+
+            //Player movement
+            if (Input.GetKey(KeyCode.A))
+            {
+                rotationAmount = rotationAmount + playerSpeed * difficulty;
+            }
+            else if (Input.GetKey(KeyCode.D))
+            {
+                rotationAmount = rotationAmount - playerSpeed * difficulty;
+            }
+
+            //Set rotation boundaries
+            if (rotationAmount > centerPointEdges + 0.1F)
+            {
+                rotationAmount = centerPointEdges + 0.1F;
+            }
+            if (rotationAmount < -centerPointEdges - 0.1F)
+            {
+                rotationAmount = -centerPointEdges - 0.1F;
+            }
+
+            //Set values
+            balanceText.text = "Balance: " + rotationAmount.ToString();
+            transform.rotation = Quaternion.Euler(0, 0, rotationAmount);
+            balanceSlider.value = -rotationAmount;
+            centerPointSlider.value = -centerPoint;
         }
 
-        //Set rotation boundaries
-        if (rotationAmount > centerPointEdges+0.1F)
-        {
-            rotationAmount = centerPointEdges+ 0.1F;
-        }
-        if (rotationAmount < -centerPointEdges- 0.1F)
-        {
-            rotationAmount = -centerPointEdges- 0.1F;
-        }
-
-        //Set values
-        balanceText.text = "Balance: " + rotationAmount.ToString();
-        transform.rotation = Quaternion.Euler(0, 0,rotationAmount);
-        balanceSlider.value = -rotationAmount;
-        centerPointSlider.value = -centerPoint;
     }
-
 
     
 }

@@ -31,8 +31,13 @@ public class SongBookBehaviour : MonoBehaviour {
     private float startTime;
     private float elapsedTime;
 
+    private GameManagerScript GMS;
+
     // Use this for initialization
     void Start () {
+
+
+        GMS = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
 
         //initialization for input field
         var se = new InputField.SubmitEvent();
@@ -51,49 +56,70 @@ public class SongBookBehaviour : MonoBehaviour {
         StartPositionVector = GameObject.Find("Song book").transform.position - padding;
         positionVector = StartPositionVector;
         rowPositionVector = StartPositionVector;
+
+
+
     }
 	
 
 	// Update is called once per frame
 	void Update () {
 
-        elapsedTime = Time.time - startTime;
-        
-        horisontalSpeed = 10*((bpm / bars) / 60) * (Time.deltaTime);
-        horisontalSpeedVector = new Vector3(horisontalSpeed, 0F, 0F);
-
-
-
-        if (elapsedTime / counterTimeMetronome >= ((60) / (bpm)))//metronome sound every beat
+        if (GMS.countDownDone == false)//resets the time while count down
         {
-            print("Tick");
-            counterTimeMetronome++;
-            audioSource.PlayOneShot(audioClipMetronomeSound, volume);
+            elapsedTime = 0;
+            startTime = Time.time;
         }
 
+        if (GMS.countDownDone == true)
+        {
 
-        if (rowCounter >= rows && (elapsedTime / counterTime >= ((60) / (bpm / bars))))//move the song timer to the top
-        {
-            counterTime++;
-            rowCounter = 0;
-            rowPositionVector = StartPositionVector;
-            positionVector = rowPositionVector;
-            positionVector = positionVector + horisontalSpeedVector;
-            transform.position = positionVector;
-        }
-        else if (elapsedTime / counterTime >= ((60) / (bpm / bars)))//move to next row
-        {
-            counterTime++;
-            rowPositionVector = rowPositionVector - rowPadding;
-            positionVector = rowPositionVector;
-            positionVector = positionVector + horisontalSpeedVector;
-            transform.position = positionVector;
-            rowCounter++;
-        }
-        else//move horisontal
-        {
-            positionVector = positionVector + horisontalSpeedVector;
-            transform.position = positionVector;
+            if (elapsedTime == 0)//plays the first metronome click and starts helan går
+            {
+                audioSource.PlayOneShot(audioClipMetronomeSound, volume);
+                AudioScript.playSong();//Calls a static funtion in AudioScript that plays the selected song
+            }
+            
+
+            elapsedTime = Time.time - startTime;
+
+            horisontalSpeed = 10 * ((bpm / bars) / 60) * (Time.deltaTime);
+            horisontalSpeedVector = new Vector3(horisontalSpeed, 0F, 0F);
+
+
+
+            if (elapsedTime / counterTimeMetronome >= ((60) / (bpm)))//metronome sound every beat
+            {
+                print("Tick");
+                counterTimeMetronome++;
+                audioSource.PlayOneShot(audioClipMetronomeSound, volume);
+            }
+
+
+            if (rowCounter >= rows && (elapsedTime / counterTime >= ((60) / (bpm / bars))))//move the song timer to the top
+            {
+                counterTime++;
+                rowCounter = 0;
+                rowPositionVector = StartPositionVector;
+                positionVector = rowPositionVector;
+                positionVector = positionVector + horisontalSpeedVector;
+                transform.position = positionVector;
+            }
+            else if (elapsedTime / counterTime >= ((60) / (bpm / bars)))//move to next row
+            {
+                counterTime++;
+                rowPositionVector = rowPositionVector - rowPadding;
+                positionVector = rowPositionVector;
+                positionVector = positionVector + horisontalSpeedVector;
+                transform.position = positionVector;
+                rowCounter++;
+            }
+            else//move horisontal
+            {
+                positionVector = positionVector + horisontalSpeedVector;
+                transform.position = positionVector;
+            }
+
         }
 
         
