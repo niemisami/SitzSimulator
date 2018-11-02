@@ -5,6 +5,11 @@ using UnityEngine;
 public class FloatingEffectScript : MonoBehaviour {
     private float sinOutput;
     private float counter = 0;
+    public float effectAmount = 0.03f;
+    public float verticalMovementAmount = 1f;
+    public float verticalRotationAmount = 7;
+    public float horisontalRotationAmount = 7;
+    public bool verticalMovement = true;
 	// Use this for initialization
 	void Start () {
         sinOutput = 0;
@@ -12,9 +17,12 @@ public class FloatingEffectScript : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
         sinOutput = Mathf.Sin(counter);
-        transform.position += new Vector3(0f, sinOutput, 0f);
-        transform.rotation = Quaternion.Euler(0, 0, sinOutput*2);
-        counter = counter + 0.05f;
+        if (verticalMovement)
+        {
+            transform.position += new Vector3(0, sinOutput* verticalMovementAmount, 0);
+        }
+        transform.rotation = Quaternion.Euler(0, sinOutput * horisontalRotationAmount, sinOutput * verticalRotationAmount);
+        counter = counter + effectAmount;
 
     }
 }
