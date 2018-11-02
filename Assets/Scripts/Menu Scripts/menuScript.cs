@@ -34,4 +34,8 @@ public class menuScript : MonoBehaviour {
     {
         AudioListener.volume = volumeSlider.value;
     }
+    public void exitGame()
+    {
+        Application.Quit();
+    }
 }
