@@ -19,6 +19,8 @@ public class SongBookController : MonoBehaviour
   public KeyCode[] allowedKeys;
   private KeyCode lastKey;
 
+  private GameManagerScript GMS;
+
   void Awake()
   {
     arrowController = new ArrowEventController();
@@ -31,10 +33,19 @@ public class SongBookController : MonoBehaviour
     arrowController.init(songMappedCharacters, nextNotesText);
     startTime = Time.time;
     displayText("Nothing");
+
+
+    GMS = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
   }
 
   void Update()
   {
+
+    if (GMS.GameIsActive != true)
+    {
+      return;
+    }
+
     foreach (KeyCode code in allowedKeys)
     {
       if (Input.GetKeyUp(code))
