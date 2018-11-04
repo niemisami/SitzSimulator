@@ -18,10 +18,10 @@ public class BalanceScript : MonoBehaviour {
 
 	//Constants
 	private const float RotationBoundary = 90;	//Maximum rotation in degrees
-	private const float MaxSpeed = 3F;
-	private const float MinSpeed = 0.5F;
+	private const float MaxSpeed = 0.2F;
+	private const float MinSpeed = 0.1F;
 	private const float Slope = 0.25F; 			//Adjusts the gravity slope, higher is steeper
-	private const float CorrectionSpeed = 0.5F; //Adjusts players ability to correct 
+	private const float CorrectionSpeed = 1F; //Adjusts players ability to correct 
 	private const float OscFrequency = 4;		//Character oscillation frequency
 
 	// Use this for initialization
@@ -66,7 +66,7 @@ public class BalanceScript : MonoBehaviour {
 		if (RotationDegree <= -RotationBoundary) RotationDegree = -RotationBoundary;
 		
 		//Update the transform
-		transform.rotation = Quaternion.Euler(0, 0, -RotationDegree);
+		transform.rotation = Quaternion.Euler(0, 0, -RotationDegree*0.5f);
 		BalanceSlider.value = RotationDegree;
 		BalanceText.text = PlayerSpeed.ToString();
 
