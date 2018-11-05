@@ -5,14 +5,8 @@ using UnityEngine;
 public class SetBodyPartsPosition : MonoBehaviour
 {
 
-    Vector3 startPos;
-    Vector3 playerStartPos;
-    float startX;
-    float startY;
-    float playerX;
-    float playerY;
-    float playerRotation;
-    float test = 100f;
+
+
     Quaternion rotation;
 
 
@@ -28,13 +22,7 @@ public class SetBodyPartsPosition : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        startPos = transform.position;
-        startX = transform.position.x;
-        startY = transform.position.y;
-        playerX = GameObject.Find("Player").transform.position.x;
-        playerY = GameObject.Find("Player").transform.position.y;
-        print(GameObject.Find("Player").transform.rotation);
-        playerStartPos = GameObject.Find("Player").transform.position;
+
         sinOutput = 0;
 
 
@@ -47,11 +35,7 @@ public class SetBodyPartsPosition : MonoBehaviour
     void Update()
     {
 
-        rotation = new Quaternion(GameObject.Find("Player").transform.rotation.x* test, GameObject.Find("Player").transform.rotation.y* test, GameObject.Find("Player").transform.rotation.z* test, GameObject.Find("Player").transform.rotation.w* test);
-        
-        //transform.localRotation = rotation;
-
-        //transform.position = startPos + GameObject.Find("Player").transform.position- playerStartPos;
+        rotation = GameObject.Find("Player").transform.rotation;
         sinOutput = Mathf.Sin(counter);
         if (verticalMovement)
         {
@@ -59,7 +43,5 @@ public class SetBodyPartsPosition : MonoBehaviour
         }
         transform.rotation = Quaternion.Euler(0, sinOutput * horisontalRotationAmount, sinOutput * verticalRotationAmount)* rotation* rotation;
         counter = counter + effectAmount;
-
-
     }
 }
