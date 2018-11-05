@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class SongBookBehaviour : MonoBehaviour {
 
+    private bool audioDelayDone = false;
+
     //Audio variables for metronome
     public Button playSongButton;
     public AudioClip audioClipMetronomeSound;
@@ -79,21 +81,19 @@ public class SongBookBehaviour : MonoBehaviour {
 
         }
 
-        if (GMS.GameIsActive == true)
+            if (GMS.GameIsActive == true)
         {
 
             if (elapsedTime == 0)//plays the first metronome click and starts helan går
             {
                 audioSource.PlayOneShot(audioClipMetronomeSound, volume);
                 AudioScript.playSong();//Calls a static funtion in AudioScript that plays the selected song
+
             }
-
-            
-
-            elapsedTime = Time.time - startTime;
 
             horisontalSpeed = 10 * ((bpm / bars) / 60) * (Time.deltaTime);
             horisontalSpeedVector = new Vector3(horisontalSpeed, 0F, 0F);
+            elapsedTime = Time.time - startTime;
 
 
 
@@ -125,6 +125,7 @@ public class SongBookBehaviour : MonoBehaviour {
             {
                 MoveHorisontal();
             }
+            
 
         }
 
@@ -160,4 +161,5 @@ public class SongBookBehaviour : MonoBehaviour {
         counterTimeMetronome = 1;
         AudioScript.playSong();//Calls a static funtion in AudioScript that plays the selected song
     }
+
 }
