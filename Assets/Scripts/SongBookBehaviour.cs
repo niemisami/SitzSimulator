@@ -162,4 +162,9 @@ public class SongBookBehaviour : MonoBehaviour {
         AudioScript.playSong();//Calls a static funtion in AudioScript that plays the selected song
     }
 
+    public Vector2 getSongTimer() 
+    {
+        return positionVector;
+    }
+    
 }

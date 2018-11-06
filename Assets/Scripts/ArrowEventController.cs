@@ -22,11 +22,9 @@ public class ArrowEventController
   private End endAction;
 
   private StringBuilder sb;
-
+  
   public void init(string[] songCorrectCharacters, Text nextNotesText)
   {
-
-
     // Map characters to correct Input KeyCodes
     characterKeyMap = new Dictionary<string, KeyCode>();
     characterKeyMap.Add("W", KeyCode.UpArrow);
@@ -71,13 +69,14 @@ public class ArrowEventController
     string nextCharacter = songCorrectCharacters[nextIndex];
     nextIndex++;
     displayNextNotes(3);
-    try {
+    try
+    {
       KeyCode expectedKeyCode = characterKeyMap[nextCharacter];
       if (pressedKey == expectedKeyCode)
       {
         return keyActionMap[expectedKeyCode];
       }
-    } 
+    }
     catch (KeyNotFoundException)
     {
       Debug.LogWarning("Pause");
@@ -158,7 +157,7 @@ public class Down : ArrowEventAction
 {
   public override void Execute(Text textContainer)
   {
-    textContainer.text = "Down";
+    textContainer.text = "DOWN";
   }
 }
 public class Fail : ArrowEventAction
