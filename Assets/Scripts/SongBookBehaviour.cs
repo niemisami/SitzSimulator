@@ -5,35 +5,49 @@ using UnityEngine.UI;
 
 public class SongBookBehaviour : MonoBehaviour {
 
-    //Audio variables, all audio stuff should be made into an own class... 
-    public List<AudioClip> clips;
+    private bool audioDelayDone = false;
+
+    //Audio variables for metronome
     public Button playSongButton;
-    public Dropdown dropdownSongList;
     public AudioClip audioClipMetronomeSound;
-    public AudioClip audioClipSong;
     public float volume = 1;
     private AudioSource audioSource;
+
+
 
     //Song timer variables
     public InputField bpmInput;
     private Vector3 positionVector;
     private Vector3 rowPositionVector;
     private Vector3 StartPositionVector;
-    private Vector3 padding = new Vector3(0F, 0.2F, 0F);
-    private Vector3 rowPadding = new Vector3(0F, 0.4F, 0F);
+    private Vector3 padding = new Vector3(0F, 1.5F, 0F);
+    private Vector3 rowPadding = new Vector3(0F, 1.22F, 0F);
     private Vector3 horisontalSpeedVector;
-    private float bpm = 80;
+    private float bpm = 124;
     private float horisontalSpeed;
+<<<<<<< HEAD
     private float bars = 8;
     private float rows = 24;
+=======
+    private float bars = 4;
+    private float rows = 11;
+>>>>>>> 37ee0c046ee2c8217fb038719cb27abfadabfe07
     private float rowCounter = 0;
     private int counterTime=1;
     private int counterTimeMetronome = 1;
     private float startTime;
     private float elapsedTime;
 
+    private GameManagerScript GMS;
+
+
+    private Vector3 startPositionTemp;
+
     // Use this for initialization
     void Start () {
+
+
+        GMS = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
 
         //initialization for input field
         var se = new InputField.SubmitEvent();
@@ -45,70 +59,87 @@ public class SongBookBehaviour : MonoBehaviour {
         bce.AddListener(playSong);
         playSongButton.onClick = bce;
 
-        //initialization for dropdown menu
-        var de = new Dropdown.DropdownEvent();
-        de.AddListener(selectSong);
-        dropdownSongList.onValueChanged = de;
-        dropdownSongList.ClearOptions();
-
-        //Adds the names of the songs to the dropdown menu
-        List<string> clipsString = new List<string>();
-        foreach (AudioClip clip in clips)
-        {
-            clipsString.Add(clip.name);
-        }
-        dropdownSongList.AddOptions(clipsString);
         audioSource = GetComponent<AudioSource>();
-        selectSong(0);
-
         startTime = Time.time;
 
-
-
         //Sets the starting position of the song timer
-        StartPositionVector = GameObject.Find("Song book").transform.position - padding;
+        StartPositionVector = transform.position;//GameObject.Find("Song book").transform.position;
         positionVector = StartPositionVector;
         rowPositionVector = StartPositionVector;
+
+
+
     }
 	
 
 	// Update is called once per frame
 	void Update () {
 
-        elapsedTime = Time.time - startTime;
-        horisontalSpeed = 10*((bpm / bars) / 60) * (Time.deltaTime);
-        horisontalSpeedVector = new Vector3(horisontalSpeed, 0F, 0F);
-
-        if (elapsedTime  / counterTimeMetronome  >= ((60) / (bpm)))//metronome sound every beat
+        if (GMS.GameIsActive == false)//resets the time while count down and resets position
         {
-            print("Tick");
-            counterTimeMetronome++;
-            audioSource.PlayOneShot(audioClipMetronomeSound, volume);
-        }
-
-        if (rowCounter >= rows && (elapsedTime / counterTime >= ((60) / (bpm / bars))))//move the song timer to the top
-            {
-            counterTime++;
-            rowCounter = 0;
+            elapsedTime = 0;
+            startTime = Time.time;
+            StartPositionVector = transform.position;// GameObject.Find("Song book").transform.position - padding;
+            positionVector = StartPositionVector;
             rowPositionVector = StartPositionVector;
-            positionVector = rowPositionVector;
-            positionVector = positionVector + horisontalSpeedVector;
-            transform.position = positionVector;
-        }     
-        else if (elapsedTime / counterTime >= ((60) / (bpm / bars)))//move to next row
-        {
-            counterTime++;
-            rowPositionVector = rowPositionVector - rowPadding;
-            positionVector = rowPositionVector;
-            positionVector = positionVector + horisontalSpeedVector;
-            transform.position = positionVector;
-            rowCounter++;
+            startPositionTemp = GameObject.Find("Song book").transform.position;
+
         }
-        else//move horisontal
+
+            if (GMS.GameIsActive == true)
         {
-            positionVector = positionVector + horisontalSpeedVector;
-            transform.position = positionVector;
+
+            if (elapsedTime == 0)//plays the first metronome click and starts helan går
+            {
+                audioSource.PlayOneShot(audioClipMetronomeSound, volume);
+                AudioScript.playSong();//Calls a static funtion in AudioScript that plays the selected song
+
+            }
+
+            horisontalSpeed = 10 * ((bpm / bars) / 60) * (Time.deltaTime);
+            horisontalSpeedVector = new Vector3(horisontalSpeed, 0F, 0F);
+            elapsedTime = Time.time - startTime;
+
+
+
+            if (elapsedTime / counterTimeMetronome >= ((60) / (bpm)))//metronome sound every beat
+            {
+                print("Tick");
+                counterTimeMetronome++;
+                audioSource.PlayOneShot(audioClipMetronomeSound, volume);
+            }
+
+
+            if (rowCounter >= rows && (elapsedTime / counterTime >= ((60) / (bpm / bars))))//move the song timer to the top
+            {
+                counterTime++;
+                rowCounter = 0;
+                rowPositionVector = StartPositionVector;
+                positionVector = rowPositionVector;
+                MoveHorisontal();
+            }
+            else if (elapsedTime / counterTime >= ((60) / (bpm / bars)))//move to next row
+            {
+                counterTime++;
+                rowPositionVector = rowPositionVector - rowPadding;
+                positionVector = rowPositionVector;
+                MoveHorisontal();
+                rowCounter++;
+            }
+            else//move horisontal
+            {
+                MoveHorisontal();
+            }
+            
+
         }
+
+        
+    }
+    private void MoveHorisontal()
+    {
+        positionVector = positionVector + horisontalSpeedVector;
+        transform.position = positionVector + GameObject.Find("Song book").transform.position - startPositionTemp;
     }
 
     
@@ -126,8 +157,6 @@ public class SongBookBehaviour : MonoBehaviour {
 
     private void playSong()//Is called when play song button is pressed
     {
-        audioSource.Stop();
-        audioSource.PlayOneShot(audioClipSong, volume);
         positionVector = StartPositionVector;
         rowPositionVector = StartPositionVector;
         rowCounter = 0;
@@ -135,13 +164,7 @@ public class SongBookBehaviour : MonoBehaviour {
         startTime = Time.time;
         elapsedTime = 0;
         counterTimeMetronome = 1;
+        AudioScript.playSong();//Calls a static funtion in AudioScript that plays the selected song
     }
-    private void selectSong(int i)//Is calles when a song is selected from dropdown menu
-    {
-        foreach (AudioClip clip in clips)
-        {
-            if (clip.name == dropdownSongList.options[dropdownSongList.value].text)
-                audioClipSong = clip;
-        }
-    }
+
 }
