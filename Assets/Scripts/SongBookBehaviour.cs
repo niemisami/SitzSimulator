@@ -25,13 +25,9 @@ public class SongBookBehaviour : MonoBehaviour {
     private Vector3 horisontalSpeedVector;
     private float bpm = 124;
     private float horisontalSpeed;
-<<<<<<< HEAD
-    private float bars = 8;
-    private float rows = 24;
-=======
+
     private float bars = 4;
     private float rows = 11;
->>>>>>> 37ee0c046ee2c8217fb038719cb27abfadabfe07
     private float rowCounter = 0;
     private int counterTime=1;
     private int counterTimeMetronome = 1;
