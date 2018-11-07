@@ -41,11 +41,6 @@ public class Arrow : MonoBehaviour
         isVisited = true;
         anim.SetTrigger("success");
       }
-      else
-      {
-        isVisited = false;
-        anim.SetTrigger("fail");
-      }
     }
   }
 }
