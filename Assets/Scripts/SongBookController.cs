@@ -10,6 +10,7 @@ public class SongBookController : MonoBehaviour
   [SerializeField]
   private GameObject arrowPrefab;
   private GameObject[] arrows;
+  private GameObject songTimer;
 
   public Text keyStrokeText;
   public Text nextNotesText;
@@ -20,6 +21,10 @@ public class SongBookController : MonoBehaviour
   public char[] songMappedCharacters;
   public KeyCode[] allowedKeys;
   private KeyCode lastKey;
+
+  private Vector3 rowPadding = new Vector3(0F, 0.63f, 0F);
+  private Vector3 arrowStartPosition = new Vector3(-2f, 3.53f, 0f);
+  private Vector3 rowPositionVector = new Vector3(0f, 0f, 0f);
 
   private GameManagerScript GMS;
 
@@ -36,83 +41,71 @@ public class SongBookController : MonoBehaviour
     startTime = Time.time;
 
     arrows = new GameObject[songMappedCharacters.Length];
+    int arrowsPerRow = 5;
+    int rowIndex = 0;
     for (int i = 0; i < arrows.Length; i++)
     {
-      GameObject songBook = GameObject.Find("Song book");
-      Vector3 songBookOrigo = new Vector3(songBook.transform.position.x, songBook.transform.position.y, songBook.transform.position.z);
-      Vector3 initialArrowPosition = new Vector3(0f, 0f, 0f);
-      GameObject arrow = GameObject.Instantiate(arrowPrefab, initialArrowPosition, songBook.transform.rotation);
-      arrow.transform.SetParent(songBook.transform, true);
-      arrow.transform.position = new Vector3(i -1.05f, 3.52f, 0f);
-      if (songMappedCharacters[i] == 'A')
+      char mappedChar = songMappedCharacters[i];
+      // Don't instatiate new arrow on pause
+      if (mappedChar != '0')
       {
-        arrow.GetComponent<Arrow>().direction = Direction.Left;
-        arrow.GetComponent<Arrow>().correctKeyCode = KeyCode.LeftArrow;
-      }
-      else if (songMappedCharacters[i] == 'W')
-      {
-        arrow.GetComponent<Arrow>().direction = Direction.Up;
-        arrow.GetComponent<Arrow>().correctKeyCode = KeyCode.UpArrow;
-      }
-      else if (songMappedCharacters[i] == 'D')
-      {
-        arrow.GetComponent<Arrow>().direction = Direction.Right;
-        arrow.GetComponent<Arrow>().correctKeyCode = KeyCode.RightArrow;
-      }
-      else if (songMappedCharacters[i] == 'S')
-      {
-        arrow.GetComponent<Arrow>().direction = Direction.Down;
-        arrow.GetComponent<Arrow>().correctKeyCode = KeyCode.DownArrow;
-      }
-      else
-      {
-        arrow.GetComponent<Arrow>().isVisited = true;
-        arrow.GetComponent<Arrow>().isFailed = true;
+        GameObject arrow = GameObject.Instantiate(arrowPrefab);
+        arrow.transform.SetParent(transform);
+        // Set arrows to start from top left corner and
+        arrow.transform.localPosition = arrow.transform.position + new Vector3(rowIndex - 2f, 3.52f, 0f) + rowPositionVector;
+        arrow.transform.localRotation = transform.rotation;
+        arrow.transform.localScale = new Vector3(0.5f, 0.5f, 0f);
+        if (mappedChar == 'A')
+        {
+          arrow.GetComponent<Arrow>().direction = Direction.Left;
+          arrow.GetComponent<Arrow>().correctKeyCode = KeyCode.LeftArrow;
+        }
+        else if (mappedChar == 'W')
+        {
+          arrow.GetComponent<Arrow>().direction = Direction.Up;
+          arrow.GetComponent<Arrow>().correctKeyCode = KeyCode.UpArrow;
+        }
+        else if (mappedChar == 'D')
+        {
+          arrow.GetComponent<Arrow>().direction = Direction.Right;
+          arrow.GetComponent<Arrow>().correctKeyCode = KeyCode.RightArrow;
+        }
+        else if (mappedChar == 'S')
+        {
+          arrow.GetComponent<Arrow>().direction = Direction.Down;
+          arrow.GetComponent<Arrow>().correctKeyCode = KeyCode.DownArrow;
+        }
+        else
+        {
+          arrow.GetComponent<Arrow>().isActive = false;
+          arrow.GetComponent<Arrow>().isSuccess = false;
+        }
+        arrows[i] = arrow;
       }
 
-      arrows[i] = arrow;
+      // move position vector down when row ends
+      rowIndex++;
+      if (rowIndex == arrowsPerRow)
+      {
+        rowPositionVector -= rowPadding;
+        rowIndex = 0;
+      }
     }
-
-
     GMS = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
   }
 
   void Update()
   {
-
     if (GMS.GameIsActive != true)
     {
       return;
     }
-
-    foreach (KeyCode code in allowedKeys)
-    {
-      if (Input.GetKeyUp(code))
-      {
-        // TODO: use actual beats from sheet
-        // elapsedTime = Time.time - startTime;
-        // if (elapsedTime > 1.0)
-        // {
-        try
-        {
-          ArrowEventAction nextBeat = arrowController.getNextAction(code);
-          nextBeat.Execute(keyStrokeText);
-        }
-        catch (KeyNotFoundException)
-        {
-          Debug.LogWarning("Pause");
-        }
-        startTime = Time.time;
-      }
-      // }
-    }
-
   }
 
-  void displayText(string stroke)
-  {
-    keyStrokeText.text = "Next: " + stroke;
-  }
+  // void displayText(string stroke)
+  // {
+  //   keyStrokeText.text = "Next: " + stroke;
+  // }
 }
 
 

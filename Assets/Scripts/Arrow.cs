@@ -9,8 +9,8 @@ public class Arrow : MonoBehaviour
   public Direction direction;
   public Vector2 position;
   public KeyCode correctKeyCode;
-  public bool isVisited = false;
-  public bool isFailed = false;
+  public bool isActive = false;
+  public bool isSuccess = false;
 
   private Animator anim;
 
@@ -28,19 +28,31 @@ public class Arrow : MonoBehaviour
 
   void Update()
   {
-    if (GMS.GameIsActive != true)
+    if (GMS.GameIsActive != true || isActive == false)
     {
       return;
     }
 
-    if (isVisited == false)
+    if (Input.GetKeyDown(correctKeyCode))
     {
-      //Look for input to trigger a "flap".
-      if (Input.GetKeyDown(correctKeyCode))
-      {
-        isVisited = true;
-        anim.SetTrigger("success");
-      }
+      isSuccess = true;
     }
+  }
+
+  void OnTriggerEnter2D(Collider2D col)
+  {
+    isActive = true;
+    Debug.Log(col.gameObject.name + " : " + gameObject.name + " : " + Time.time);
+  }
+
+  void OnTriggerExit2D(Collider2D col)
+  {
+    isActive = false;
+    if(isSuccess == false) {
+      anim.SetTrigger("fail");
+    } else {
+      anim.SetTrigger("success");
+    }
+
   }
 }
