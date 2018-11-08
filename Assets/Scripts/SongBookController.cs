@@ -41,7 +41,7 @@ public class SongBookController : MonoBehaviour
     startTime = Time.time;
 
     arrows = new GameObject[songMappedCharacters.Length];
-    int arrowsPerRow = 5;
+    int arrowsPerRow = 4;
     int rowIndex = 0;
     for (int i = 0; i < arrows.Length; i++)
     {
