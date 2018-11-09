@@ -8,9 +8,9 @@ using UnityEngine.UI;
 public class ArrowEventController
 {
   Dictionary<KeyCode, ArrowEventAction> keyActionMap;
-  Dictionary<string, KeyCode> characterKeyMap;
-  private string[] oldStrokes;
-  private string[] songCorrectCharacters;
+  Dictionary<char, KeyCode> characterKeyMap;
+  private char[] oldStrokes;
+  private char[] songCorrectCharacters;
   private int nextIndex = 0;
   private Text nextNotesText;
 
@@ -23,19 +23,17 @@ public class ArrowEventController
 
   private StringBuilder sb;
 
-  public void init(string[] songCorrectCharacters, Text nextNotesText)
+  public void init(char[] songCorrectCharacters, Text nextNotesText)
   {
-
-
     // Map characters to correct Input KeyCodes
-    characterKeyMap = new Dictionary<string, KeyCode>();
-    characterKeyMap.Add("W", KeyCode.UpArrow);
-    characterKeyMap.Add("A", KeyCode.LeftArrow);
-    characterKeyMap.Add("S", KeyCode.DownArrow);
-    characterKeyMap.Add("D", KeyCode.RightArrow);
+    characterKeyMap = new Dictionary<char, KeyCode>();
+    characterKeyMap.Add('W', KeyCode.UpArrow);
+    characterKeyMap.Add('A', KeyCode.LeftArrow);
+    characterKeyMap.Add('S', KeyCode.DownArrow);
+    characterKeyMap.Add('D', KeyCode.RightArrow);
 
     // Arrays of song chars; "beats" and directions
-    oldStrokes = new string[songCorrectCharacters.Length];
+    oldStrokes = new char[songCorrectCharacters.Length];
     this.songCorrectCharacters = songCorrectCharacters;
 
     // Initialize commands objects which updates the UI
@@ -68,16 +66,17 @@ public class ArrowEventController
     {
       return endAction;
     }
-    string nextCharacter = songCorrectCharacters[nextIndex];
+    char nextCharacter = songCorrectCharacters[nextIndex];
     nextIndex++;
     displayNextNotes(3);
-    try {
+    try
+    {
       KeyCode expectedKeyCode = characterKeyMap[nextCharacter];
       if (pressedKey == expectedKeyCode)
       {
         return keyActionMap[expectedKeyCode];
       }
-    } 
+    }
     catch (KeyNotFoundException)
     {
       Debug.LogWarning("Pause");
@@ -91,7 +90,7 @@ public class ArrowEventController
   **/
   void displayNextNotes(int noteCount)
   {
-    string nextCharacter = songCorrectCharacters[nextIndex];
+    char nextCharacter = songCorrectCharacters[nextIndex];
     string nextText = "";
     int hintIndex = nextIndex - 1;
     try
@@ -158,7 +157,7 @@ public class Down : ArrowEventAction
 {
   public override void Execute(Text textContainer)
   {
-    textContainer.text = "Down";
+    textContainer.text = "DOWN";
   }
 }
 public class Fail : ArrowEventAction
