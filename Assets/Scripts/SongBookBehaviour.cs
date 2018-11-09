@@ -100,7 +100,7 @@ public class SongBookBehaviour : MonoBehaviour {
 
             if (elapsedTime / counterTimeMetronome >= ((60) / (bpm)))//metronome sound every beat
             {
-                print("Tick");
+                //print("Tick");
                 counterTimeMetronome++;
                 audioSource.PlayOneShot(audioClipMetronomeSound, volume);
             }

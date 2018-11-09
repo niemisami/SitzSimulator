@@ -11,7 +11,9 @@ public class AudioScript : MonoBehaviour {
     public static float volume = 1;
     public static AudioSource audioSource;
 
+    public static bool songIsPlaying = false;
 
+    private GameManagerScript GMS;
     // Use this for initialization
     void Start () {
         //initialization for dropdown menu
@@ -32,10 +34,25 @@ public class AudioScript : MonoBehaviour {
 
     }
 
+    private void Update()
+    {
+
+        if (!audioSource.isPlaying && songIsPlaying )
+        {
+            GMS = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
+            GMS.GameIsActive = false;
+
+            print("song has ended");
+            songIsPlaying = false;
+        }
+
+    }
+
     public static void playSong()//plays the song
     {
         audioSource.Stop();
         audioSource.PlayOneShot(audioClipSong, volume);
+        songIsPlaying = true;
     }
 
     public void selectSong(int i)//Is calles when a song is selected from dropdown menu
@@ -44,6 +61,9 @@ public class AudioScript : MonoBehaviour {
         {
             if (clip.name == dropdownSongList.options[dropdownSongList.value].text)
                 audioClipSong = clip;
+           
         }
+
+       
     }
 }
