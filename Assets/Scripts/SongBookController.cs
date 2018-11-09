@@ -1,3 +1,4 @@
+/*
 <<<<<<< HEAD
 ﻿using System;
 using UnityEngine;
@@ -79,6 +80,7 @@ public class SongBookController : MonoBehaviour
 
 
 =======
+*/
 ﻿using System;
 using UnityEngine;
 using System.Collections;
@@ -133,7 +135,7 @@ public class SongBookController : MonoBehaviour
         GameObject arrow = GameObject.Instantiate(arrowPrefab);
         arrow.transform.SetParent(transform);
         // Set arrows to start from top left corner and
-        arrow.transform.localPosition = arrow.transform.position + new Vector3(rowIndex - 2f, 3.52f, 0f) + rowPositionVector;
+        arrow.transform.localPosition = arrow.transform.position + new Vector3(rowIndex - 1.75f, 3.52f, 0f) + rowPositionVector;
         arrow.transform.localRotation = transform.rotation;
         arrow.transform.localScale = new Vector3(0.5f, 0.5f, 0f);
         if (mappedChar == 'A')
@@ -190,4 +192,4 @@ public class SongBookController : MonoBehaviour
 }
 
 
->>>>>>> master
+//>>>>>>> master
