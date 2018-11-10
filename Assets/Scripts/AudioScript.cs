@@ -10,10 +10,10 @@ public class AudioScript : MonoBehaviour {
     public static AudioClip audioClipSong;
     public static float volume = 1;
     public static AudioSource audioSource;
-
     public static bool songIsPlaying = false;
-
     private GameManagerScript GMS;
+    public GameObject endGameScreen;
+
     // Use this for initialization
     void Start () {
         //initialization for dropdown menu
@@ -32,18 +32,21 @@ public class AudioScript : MonoBehaviour {
         audioSource = GetComponent<AudioSource>();
         selectSong(0);
 
+        endGameScreen.SetActive(false);
+
+
     }
 
     private void Update()
     {
 
-        if (!audioSource.isPlaying && songIsPlaying )
+        if (!audioSource.isPlaying && songIsPlaying )//Pauses game after song has ended
         {
             GMS = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
             GMS.GameIsActive = false;
-
-            print("song has ended");
+            print("Game paused because song has ended");
             songIsPlaying = false;
+            endGameScreen.SetActive(true);
         }
 
     }
@@ -61,9 +64,6 @@ public class AudioScript : MonoBehaviour {
         {
             if (clip.name == dropdownSongList.options[dropdownSongList.value].text)
                 audioClipSong = clip;
-           
         }
-
-       
     }
 }

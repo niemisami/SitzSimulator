@@ -5,15 +5,11 @@ using UnityEngine.UI;
 
 public class SongBookBehaviour : MonoBehaviour {
 
-    private bool audioDelayDone = false;
-
     //Audio variables for metronome
     public Button playSongButton;
     public AudioClip audioClipMetronomeSound;
     public float volume = 1;
     private AudioSource audioSource;
-
-
 
     //Song timer variables
     public InputField bpmInput;
@@ -25,7 +21,6 @@ public class SongBookBehaviour : MonoBehaviour {
     private Vector3 horisontalSpeedVector;
     private float bpm = 124;
     private float horisontalSpeed;
-
     private float bars = 4;
     private float rows = 11;
     private float rowCounter = 0;
@@ -35,14 +30,10 @@ public class SongBookBehaviour : MonoBehaviour {
     private float elapsedTime;
 
     private GameManagerScript GMS;
-
-
     private Vector3 startPositionTemp;
 
     // Use this for initialization
     void Start () {
-
-
         GMS = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
 
         //initialization for input field
@@ -62,14 +53,10 @@ public class SongBookBehaviour : MonoBehaviour {
         StartPositionVector = transform.position;//GameObject.Find("Song book").transform.position;
         positionVector = StartPositionVector;
         rowPositionVector = StartPositionVector;
-
-
-
     }
-	
-
 	// Update is called once per frame
 	void Update () {
+
 
         if (GMS.GameIsActive == false)//resets the time while count down and resets position
         {
@@ -82,21 +69,17 @@ public class SongBookBehaviour : MonoBehaviour {
 
         }
 
-            if (GMS.GameIsActive == true)
+        if (GMS.GameIsActive == true)
         {
-
             if (elapsedTime == 0)//plays the first metronome click and starts helan går
             {
                 audioSource.PlayOneShot(audioClipMetronomeSound, volume);
                 AudioScript.playSong();//Calls a static funtion in AudioScript that plays the selected song
-
             }
 
             horisontalSpeed = 10 * ((bpm / bars) / 60) * (Time.deltaTime);
             horisontalSpeedVector = new Vector3(horisontalSpeed, 0F, 0F);
             elapsedTime = Time.time - startTime;
-
-
 
             if (elapsedTime / counterTimeMetronome >= ((60) / (bpm)))//metronome sound every beat
             {

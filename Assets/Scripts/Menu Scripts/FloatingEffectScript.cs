@@ -10,12 +10,16 @@ public class FloatingEffectScript : MonoBehaviour {
     public float verticalRotationAmount = 7;
     public float horisontalRotationAmount = 7;
     public bool verticalMovement = true;
-	// Use this for initialization
-	void Start () {
+    private GameManagerScript GMS;
+    // Use this for initialization
+    void Start () {
         sinOutput = 0;
+
+        GMS = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
     }
 	// Update is called once per frame
 	void FixedUpdate () {
+
         sinOutput = Mathf.Sin(counter);
         if (verticalMovement)
         {
