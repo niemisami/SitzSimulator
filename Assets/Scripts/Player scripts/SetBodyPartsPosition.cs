@@ -12,6 +12,7 @@ public class SetBodyPartsPosition : MonoBehaviour
     public float verticalRotationAmount = 7;
     public float horisontalRotationAmount = 7;
     private GameManagerScript GMS;
+    public bool rotationON;
 
     // Use this for initialization
     void Start()
@@ -33,8 +34,16 @@ public class SetBodyPartsPosition : MonoBehaviour
             return;
         }
         rotation = GameObject.Find("Player").transform.rotation;
+
+        if (rotationON)
+        {
+            transform.rotation = Quaternion.Euler(0, sinOutput * horisontalRotationAmount, sinOutput * verticalRotationAmount) * rotation * rotation;
+        }
+        else
+        {
+            transform.rotation = Quaternion.Euler(0, sinOutput * horisontalRotationAmount, sinOutput * verticalRotationAmount)*rotation;
+        }
         sinOutput = Mathf.Sin(counter);
-        transform.rotation = Quaternion.Euler(0, sinOutput * horisontalRotationAmount, sinOutput * verticalRotationAmount)* rotation* rotation;
         counter = counter + effectAmount;
     }
 }
