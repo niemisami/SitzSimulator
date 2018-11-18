@@ -18,7 +18,7 @@ public class BalanceScript : MonoBehaviour
   public float RotationDegree;
 
   //Constants
-  private const float RotationBoundary = 90;  //Maximum rotation in degrees
+  private const float RotationBoundary = 50;  //Maximum rotation in degrees
   private const float MaxSpeed = 3F;
   private const float MinSpeed = 0.5F;
   private const float Slope = 0.25F;      //Adjusts the gravity slope, higher is steeper
@@ -27,8 +27,12 @@ public class BalanceScript : MonoBehaviour
 
   private GameManagerScript GMS;
 
-  // Use this for initialization
-  void Start()
+  private PlayerFallScript PFS;
+    public AudioSource AS;
+
+
+    // Use this for initialization
+    void Start()
   {
 
     //Chair should not rotate
@@ -39,8 +43,10 @@ public class BalanceScript : MonoBehaviour
     RotationDegree = 0;
 
     GMS = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
+    PFS = GameObject.Find("Player").GetComponent<PlayerFallScript>();
 
-  }
+
+    }
 
   // Update is called once per frame
   void Update()
@@ -73,8 +79,24 @@ public class BalanceScript : MonoBehaviour
 
     //Keep rotation within limits
     if (PlayerSpeed >= MaxSpeed) PlayerSpeed = MaxSpeed;
-    if (RotationDegree >= RotationBoundary) RotationDegree = RotationBoundary;
-    if (RotationDegree <= -RotationBoundary) RotationDegree = -RotationBoundary;
+        if (RotationDegree >= RotationBoundary)
+        {
+            //RotationDegree = RotationBoundary;
+            RotationDegree = 0;
+            GMS.GameIsActive = false;
+            PFS.fallingToTheRight = true;
+            AS.Stop();
+
+        }
+        if (RotationDegree <= -RotationBoundary)
+        {
+            //RotationDegree = -RotationBoundary;
+            RotationDegree = 0;
+            GMS.GameIsActive = false;
+            PFS.fallingToTheLeft = true;
+            AS.Stop();
+
+        }
 
     //Update the transform
     transform.rotation = Quaternion.Euler(0, 0, -RotationDegree);
