@@ -16,7 +16,7 @@ public class PlayerFallScript : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update() {
+    void FixedUpdate() {
         if (fallingToTheRight)
         {
             positionVector = positionVector + new Vector3(0.1f, -0.2f, 0);

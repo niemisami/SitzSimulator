@@ -49,7 +49,7 @@ public class BalanceScript : MonoBehaviour
     }
 
   // Update is called once per frame
-  void Update()
+  void FixedUpdate()
   {
     if (GMS.GameIsActive != true)
     {
