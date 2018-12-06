@@ -42,7 +42,7 @@ public class Arrow : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D col) {
 		_isActive = true;
-		Debug.Log(col.gameObject.name + " : " + gameObject.name + " : " + (Time.time - _startTime));
+//		Debug.Log(col.gameObject.name + " : " + gameObject.name + " : " + (Time.time - _startTime));
 
 	}
 
@@ -61,7 +61,7 @@ public class Arrow : MonoBehaviour {
 			_anim.SetTrigger("fail");
 		}
 
-		Debug.Log("EXIT" + col.gameObject.name + " : " + gameObject.name + " : " + (Time.time - _startTime));
+//		Debug.Log("EXIT" + col.gameObject.name + " : " + gameObject.name + " : " + (Time.time - _startTime));
 	}
 
 }
