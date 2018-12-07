@@ -1,6 +1,6 @@
 /*
 <<<<<<< HEAD
-﻿using System;
+ using System;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -140,29 +140,29 @@ public class SongBookController : MonoBehaviour
         arrow.transform.localScale = new Vector3(0.5f, 0.5f, 0f);
         if (mappedChar == 'A')
         {
-          arrow.GetComponent<Arrow>().direction = Direction.Left;
-          arrow.GetComponent<Arrow>().correctKeyCode = KeyCode.LeftArrow;
+          arrow.GetComponent<Arrow>().Direction = Direction.Left;
+          arrow.GetComponent<Arrow>().CorrectKeyCode = KeyCode.LeftArrow;
         }
         else if (mappedChar == 'W')
         {
-          arrow.GetComponent<Arrow>().direction = Direction.Up;
-          arrow.GetComponent<Arrow>().correctKeyCode = KeyCode.UpArrow;
+          arrow.GetComponent<Arrow>().Direction = Direction.Up;
+          arrow.GetComponent<Arrow>().CorrectKeyCode = KeyCode.UpArrow;
         }
         else if (mappedChar == 'D')
         {
-          arrow.GetComponent<Arrow>().direction = Direction.Right;
-          arrow.GetComponent<Arrow>().correctKeyCode = KeyCode.RightArrow;
+          arrow.GetComponent<Arrow>().Direction = Direction.Right;
+          arrow.GetComponent<Arrow>().CorrectKeyCode = KeyCode.RightArrow;
         }
         else if (mappedChar == 'S')
         {
-          arrow.GetComponent<Arrow>().direction = Direction.Down;
-          arrow.GetComponent<Arrow>().correctKeyCode = KeyCode.DownArrow;
+          arrow.GetComponent<Arrow>().Direction = Direction.Down;
+          arrow.GetComponent<Arrow>().CorrectKeyCode = KeyCode.DownArrow;
         }
-        else
-        {
-          arrow.GetComponent<Arrow>().isActive = false;
-          arrow.GetComponent<Arrow>().isSuccess = false;
-        }
+//        else
+//        {
+//          arrow.GetComponent<Arrow>().isActive = false;
+//          arrow.GetComponent<Arrow>().isSuccess = false;
+//        }
         arrows[i] = arrow;
       }
 
