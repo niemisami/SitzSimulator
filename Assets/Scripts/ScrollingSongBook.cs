@@ -9,13 +9,18 @@ public class ScrollingSongBook : MonoBehaviour {
 	public GameObject Cursor;
 	public GameObject ReferenceArrow;
 	public GameObject EndLine;
-	public int TotalDistance = 100;
+	
+	private float _totalDistance;
+	
 
 	private float _cursorVelocity;
+	private Rigidbody2D _cursorBody;
+	
 	private float _rowDistance;
 	private float _songLengthSeconds;
 	private List<GameObject> _arrows = new List<GameObject>();
 	private Dictionary<float, char> _mappedInputs;
+	private const float FourBeatDelta = 0.0276f; //Relative distance between four beats in the song
 	private const float LocalDistanceBetweenRows = 1.28f;
 
 
@@ -28,11 +33,15 @@ public class ScrollingSongBook : MonoBehaviour {
 		
 		_mappedInputs = inputFileHandler.MappingsDict;
 		
-		// (Average Velocity = Total Distance / Total Time)
-		_cursorVelocity = TotalDistance / _songLengthSeconds;
-		
-		//World distance is needed because the local distance is not changed when the songbook is resized.
+		//World distance is used because the local distance is not changed when the songbook is resized.
 		_rowDistance = (EndLine.transform.position.x - Cursor.transform.position.x);
+
+		_totalDistance =  _rowDistance / FourBeatDelta;
+		print(_totalDistance);
+
+		// (Average Velocity = Total Distance / Total Time)
+		_cursorVelocity = _totalDistance / _songLengthSeconds;
+		_cursorBody = Cursor.GetComponent<Rigidbody2D>();	
 	
 		//Create all the input arrows
 		foreach (var item in _mappedInputs) {
@@ -49,13 +58,15 @@ public class ScrollingSongBook : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 		
-		//Move cursor to the right using the cursors velocity
 		Cursor.transform.Translate(Vector3.right * _cursorVelocity * Time.deltaTime);
+		
+		//Move cursor to the right using the cursors velocity
+//		_cursorBody.velocity = Vector2.right * _cursorVelocity;
 
 		if (Cursor.transform.position.x >= EndLine.transform.position.x) {
 			
 			//Move cursor to the start
-			Cursor.transform.Translate(Vector3.left * _rowDistance);
+			_cursorBody.transform.Translate(Vector3.left * _rowDistance);
 
 			//Move all arrows one line up
 			foreach (var arrow in _arrows) {
@@ -70,20 +81,22 @@ public class ScrollingSongBook : MonoBehaviour {
 		var relativeSongPosition = timeStamp / _songLengthSeconds;
 		
 		//Total cursor travel distance to where the arrow should be
-		var arrowDistanceFromStart = relativeSongPosition * TotalDistance;
+		var arrowDistanceFromStart = relativeSongPosition * _totalDistance;
 		
+		//Row number is (total distance / row distance)
 		var rowToPlaceArrow = (int)(arrowDistanceFromStart / _rowDistance);
 		
-		//Arrow x position
+		//Arrow x position is the remainder
 		var xVector = Vector3.right * (arrowDistanceFromStart % _rowDistance);
 		
-		//Arrow y position
+		//Arrow y position row number * padding
 		var yVector = Vector3.down * rowToPlaceArrow * LocalDistanceBetweenRows;
 				
 		var arrow = Instantiate(ReferenceArrow, transform);
+		var body = arrow.GetComponent<Rigidbody2D>();
 		
-		arrow.transform.Translate(xVector, Cursor.transform); //Move new arrow right relative to cursor start pos
-		arrow.transform.Translate(yVector, ReferenceArrow.transform); //Move new arrow down relative to the reference
+		body.transform.Translate(xVector, Cursor.transform); //Move new arrow right relative to cursor start pos
+		body.transform.Translate(yVector, ReferenceArrow.transform); //Move new arrow down relative to the reference
 		
 		switch (directionCharacter) {
 

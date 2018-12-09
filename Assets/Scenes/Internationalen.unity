@@ -222,7 +222,6 @@ MonoBehaviour:
   Cursor: {fileID: 1464803961}
   ReferenceArrow: {fileID: 841749421}
   EndLine: {fileID: 190472606}
-  TotalDistance: 100
 --- !u!82 &380307323
 AudioSource:
   m_ObjectHideFlags: 0
@@ -387,7 +386,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 380307320}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1027350964}
@@ -395,6 +394,7 @@ Transform:
   - {fileID: 1935833185}
   - {fileID: 1464803965}
   - {fileID: 841749422}
+  - {fileID: 593755827}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -469,11 +469,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 593755824}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.96, y: 2.33, z: -3.16}
+  m_LocalPosition: {x: -0.03999996, y: 2.33, z: -3.16}
   m_LocalScale: {x: 0.25, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_Father: {fileID: 380307326}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &638934710
 GameObject:
@@ -529,7 +529,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4687875606101180, guid: 10f69fcbcb48bae49a00ec77528192a4, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 3.529
+      value: 2.254
       objectReference: {fileID: 0}
     - target: {fileID: 4687875606101180, guid: 10f69fcbcb48bae49a00ec77528192a4, type: 2}
       propertyPath: m_LocalPosition.z
@@ -572,6 +572,31 @@ Prefab:
       propertyPath: m_Offset.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 61248345227702260, guid: 10f69fcbcb48bae49a00ec77528192a4,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 61248345227702260, guid: 10f69fcbcb48bae49a00ec77528192a4,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 61248345227702260, guid: 10f69fcbcb48bae49a00ec77528192a4,
+        type: 2}
+      propertyPath: m_Offset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 61248345227702260, guid: 10f69fcbcb48bae49a00ec77528192a4,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114707810062399494, guid: 10f69fcbcb48bae49a00ec77528192a4,
+        type: 2}
+      propertyPath: Body
+      value: 
+      objectReference: {fileID: 841749427}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10f69fcbcb48bae49a00ec77528192a4, type: 2}
   m_IsPrefabAsset: 0
@@ -585,6 +610,26 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4687875606101180, guid: 10f69fcbcb48bae49a00ec77528192a4,
     type: 2}
   m_PrefabInternal: {fileID: 841749420}
+--- !u!50 &841749427
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 841749421}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 1
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1027350963
 GameObject:
   m_ObjectHideFlags: 0
@@ -656,7 +701,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1464803965}
   - component: {fileID: 1464803964}
-  - component: {fileID: 1464803963}
   - component: {fileID: 1464803962}
   - component: {fileID: 1464803967}
   m_Layer: 0
@@ -678,7 +722,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.5470123, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -689,24 +733,8 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 3.297865, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1464803963
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1464803961}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebaffa476b185444aa4a34a367edf9f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Song: {fileID: 8300000, guid: 6aad0876b498fd645a546562ed68a275, type: 3}
-  Cursor: {fileID: 1464803961}
-  ReferenceArrow: {fileID: 0}
-  EndLine: {fileID: 0}
-  TotalDistance: 250
 --- !u!212 &1464803964
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -760,7 +788,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1464803961}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2, y: 3.529, z: 0}
+  m_LocalPosition: {x: -2, y: 2.254, z: 0}
   m_LocalScale: {x: 0.091316245, y: 0.34156966, z: 1}
   m_Children: []
   m_Father: {fileID: 380307326}
@@ -773,18 +801,18 @@ Rigidbody2D:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1464803961}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
-  m_UseFullKinematicContacts: 0
+  m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!1 &1480909070
 GameObject:

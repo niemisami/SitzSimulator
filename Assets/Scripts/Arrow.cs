@@ -28,31 +28,26 @@ public class Arrow : MonoBehaviour {
 	void Start() {
 		_anim = GetComponent<Animator>();
 		transform.rotation = Quaternion.Euler(0, 0, (float) Direction);
-		_gms = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
+//		_gms = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
 		_startTime = Time.time;
 
 	}
 
 	void Update() {
-		if (_gms.GameIsActive != true || _isActive == false) {
-			return;
-		}
+//		if (_gms.GameIsActive != true || _isActive == false) {
+//			return;
+//		}
 
+		if (_isActive && Input.GetKeyDown(CorrectKeyCode)) {
+
+			_isSuccess = false;
+			_anim.SetTrigger("success");
+		}
 	}
 
 	void OnTriggerEnter2D(Collider2D col) {
-		_isActive = true;
 //		Debug.Log(col.gameObject.name + " : " + gameObject.name + " : " + (Time.time - _startTime));
-
-	}
-
-	private void OnTriggerStay2D(Collider2D other) {
-
-		if (Input.GetKeyDown(CorrectKeyCode)) {
-
-			_isSuccess = true;
-			_anim.SetTrigger("success");
-		}
+		_isActive = true;
 	}
 
 	void OnTriggerExit2D(Collider2D col) {
@@ -60,6 +55,8 @@ public class Arrow : MonoBehaviour {
 		if (!_isSuccess) {
 			_anim.SetTrigger("fail");
 		}
+
+		_isActive = false;
 
 //		Debug.Log("EXIT" + col.gameObject.name + " : " + gameObject.name + " : " + (Time.time - _startTime));
 	}
