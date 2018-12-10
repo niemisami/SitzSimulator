@@ -18,47 +18,43 @@ public class Arrow : MonoBehaviour {
 	public KeyCode CorrectKeyCode;
 
 	private Animator _anim;
-	private GameManagerScript _gms;
 
 	private bool _isActive = false;
-	private bool _isSuccess = false;
+	public bool isSuccess = false;
 
 	private float _startTime;
 
 	void Start() {
 		_anim = GetComponent<Animator>();
 		transform.rotation = Quaternion.Euler(0, 0, (float) Direction);
-//		_gms = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
 		_startTime = Time.time;
 
 	}
 
 	void Update() {
-//		if (_gms.GameIsActive != true || _isActive == false) {
-//			return;
-//		}
-
-		if (_isActive && Input.GetKeyDown(CorrectKeyCode)) {
-
-			_isSuccess = false;
+		if(!_isActive) {
+			return;
+		}
+		
+		if (Input.GetKeyDown(CorrectKeyCode)) {
+			isSuccess = true;
 			_anim.SetTrigger("success");
+		} else if(Input.anyKeyDown && !Input.GetKeyDown("w") && !Input.GetKeyDown("a") && !Input.GetKeyDown("s") && !Input.GetKeyDown("d")) {
+			isSuccess = false;
+			_anim.SetTrigger("fail");
 		}
 	}
 
 	void OnTriggerEnter2D(Collider2D col) {
-//		Debug.Log(col.gameObject.name + " : " + gameObject.name + " : " + (Time.time - _startTime));
 		_isActive = true;
 	}
 
 	void OnTriggerExit2D(Collider2D col) {
 
-		if (!_isSuccess) {
+		if (!isSuccess) {
 			_anim.SetTrigger("fail");
 		}
-
 		_isActive = false;
-
-//		Debug.Log("EXIT" + col.gameObject.name + " : " + gameObject.name + " : " + (Time.time - _startTime));
 	}
 
 }

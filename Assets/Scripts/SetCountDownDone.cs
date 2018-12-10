@@ -4,11 +4,8 @@ using UnityEngine;
 
 public class SetCountDownDone : MonoBehaviour {
 
-    private GameManagerScript GMS;
-
     public void setCountDown()
     {
-        GMS = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
-        GMS.GameIsActive = true;
+        GameManager.instance.startGame();
     }
 }

@@ -11,16 +11,12 @@ public class SetBodyPartsPosition : MonoBehaviour
     public float effectAmount = 0.03f;
     public float verticalRotationAmount = 7;
     public float horisontalRotationAmount = 7;
-    private GameManagerScript GMS;
     public bool rotationON;
 
     // Use this for initialization
     void Start()
     {
-
         sinOutput = 0;
-
-        GMS = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
     }
 
 
@@ -29,7 +25,7 @@ public class SetBodyPartsPosition : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (GMS.GameIsActive != true)
+        if (GameManager.instance.GameIsActive != true)
         {
             return;
         }

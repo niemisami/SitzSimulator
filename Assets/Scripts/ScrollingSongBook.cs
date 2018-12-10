@@ -23,7 +23,7 @@ public class ScrollingSongBook : MonoBehaviour {
 	private const float FourBeatDelta = 0.0276f; //Relative distance between four beats in the song
 	private const float LocalDistanceBetweenRows = 1.28f;
 
-
+	private int points;
 	// Use this for initialization
 	void Start () {
 		
@@ -57,7 +57,6 @@ public class ScrollingSongBook : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		
 		Cursor.transform.Translate(Vector3.right * _cursorVelocity * Time.deltaTime);
 		
 		//Move cursor to the right using the cursors velocity
@@ -69,8 +68,12 @@ public class ScrollingSongBook : MonoBehaviour {
 			_cursorBody.transform.Translate(Vector3.left * _rowDistance);
 
 			//Move all arrows one line up
+			
 			foreach (var arrow in _arrows) {
 				arrow.transform.Translate(Vector3.up * LocalDistanceBetweenRows, ReferenceArrow.transform);
+				if(arrow.GetComponent<Arrow>().isSuccess) {
+					points++;
+				}
 			}
 		}
 	}
