@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SetAlphaForBackground : MonoBehaviour {
 
+    public float fadeSpeed = 0.001f;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -11,7 +13,6 @@ public class SetAlphaForBackground : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-        GetComponent<SpriteRenderer>().color += new Color(0, 0, 0, 0.01f);
-        
+        GetComponent<SpriteRenderer>().color += new Color(0, 0, 0, fadeSpeed);
     }
 }

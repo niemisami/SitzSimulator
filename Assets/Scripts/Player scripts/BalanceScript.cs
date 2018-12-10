@@ -18,7 +18,7 @@ public class BalanceScript : MonoBehaviour
   public float RotationDegree;
 
   //Constants
-  private const float RotationBoundary = 50;  //Maximum rotation in degrees
+  private const float RotationBoundary = 90;  //Maximum rotation in degrees
   private const float MaxSpeed = 3F;
   private const float MinSpeed = 0.5F;
   private const float Slope = 0.25F;      //Adjusts the gravity slope, higher is steeper
