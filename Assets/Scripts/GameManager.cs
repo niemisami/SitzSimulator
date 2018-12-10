@@ -5,7 +5,8 @@ public class GameManager : MonoBehaviour
 {
   public static GameManager instance = null;
   public bool GameIsActive = false;
-  private int score = 0;
+  public int score = 0;
+  public int maxScore = 0;
   private int level = 1;
 
   void Awake()
@@ -21,17 +22,24 @@ public class GameManager : MonoBehaviour
     DontDestroyOnLoad(gameObject);
   }
 
-  public void startGame() {
+  public void startGame()
+  {
     GameIsActive = true;
   }
 
-  public void gameOver() {
+  public void gameOver()
+  {
     GameIsActive = false;
+    print("Score: " + score + "/" + maxScore);  
   }
 
   public void updateScore(int score)
   {
     this.score = score;
+  }
+  public void setMaxScore(int maxScore)
+  {
+    this.maxScore = maxScore;
   }
 
   public void setLevel(int level)
@@ -39,7 +47,8 @@ public class GameManager : MonoBehaviour
     this.level = level;
   }
 
-  void Update() {
+  void Update()
+  {
 
   }
 }

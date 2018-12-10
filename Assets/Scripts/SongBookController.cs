@@ -73,11 +73,11 @@ public class SongBookController : MonoBehaviour
           arrow.GetComponent<Arrow>().Direction = Direction.Down;
           arrow.GetComponent<Arrow>().CorrectKeyCode = KeyCode.DownArrow;
         }
-//        else
-//        {
-//          arrow.GetComponent<Arrow>().isActive = false;
-//          arrow.GetComponent<Arrow>().isSuccess = false;
-//        }
+        //        else
+        //        {
+        //          arrow.GetComponent<Arrow>().isActive = false;
+        //          arrow.GetComponent<Arrow>().isSuccess = false;
+        //        }
         arrows[i] = arrow;
       }
 
@@ -89,14 +89,20 @@ public class SongBookController : MonoBehaviour
         rowIndex = 0;
       }
     }
+
+    int maxScore = 0;
+    foreach (var arrow in arrows)
+    {
+      if (arrow != null)
+      {
+        maxScore++;
+      }
+    }
+    GameManager.instance.setMaxScore(maxScore);
   }
 
   void Update()
   {
-    if (GameManager.instance.GameIsActive != true)
-    {
-      return;
-    }    
   }
 }
 
