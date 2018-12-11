@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.Experimental.UIElements;
 
 public class ScrollingSongBook : MonoBehaviour {
 
@@ -9,10 +12,11 @@ public class ScrollingSongBook : MonoBehaviour {
 	public GameObject Cursor;
 	public GameObject ReferenceArrow;
 	public GameObject EndLine;
-	
-	private float _totalDistance;
+	public TextAsset SongInputFileName;
+	public float Bpm;
 	
 
+	private float _totalDistance;
 	private float _cursorVelocity;
 	private Rigidbody2D _cursorBody;
 	
@@ -20,14 +24,19 @@ public class ScrollingSongBook : MonoBehaviour {
 	private float _songLengthSeconds;
 	private List<GameObject> _arrows = new List<GameObject>();
 	private Dictionary<float, char> _mappedInputs;
-	private const float FourBeatDelta = 0.0276f; //Relative distance between four beats in the song
+	
+	private const int BeatsPerDownBeat = 4;
+	private float _inputTimeDelta; //Duration between the downbeats, used to align the beat inputs
+	private float _downBeatDelta; //Relative distance between four beats in the song
 	private const float LocalDistanceBetweenRows = 1.28f;
 
 
 	// Use this for initialization
 	void Start () {
 		
-		var inputFileHandler = new InputFileHandler("Internationalen.txt");
+		print(SongInputFileName.name);
+		
+		var inputFileHandler = new InputFileHandler(SongInputFileName.name);
 		_songLengthSeconds = Song.length;
 		print("Song length: " + _songLengthSeconds);
 		
@@ -36,7 +45,11 @@ public class ScrollingSongBook : MonoBehaviour {
 		//World distance is used because the local distance is not changed when the songbook is resized.
 		_rowDistance = (EndLine.transform.position.x - Cursor.transform.position.x);
 
-		_totalDistance =  _rowDistance / FourBeatDelta;
+		_inputTimeDelta = BeatsPerDownBeat - (Bpm / 60);
+		_downBeatDelta = _inputTimeDelta / _songLengthSeconds;
+		print(_inputTimeDelta);
+		
+		_totalDistance =  _rowDistance / _downBeatDelta;
 		print(_totalDistance);
 
 		// (Average Velocity = Total Distance / Total Time)
@@ -117,7 +130,8 @@ public class ScrollingSongBook : MonoBehaviour {
 				arrow.GetComponent<Arrow>().CorrectKeyCode = KeyCode.RightArrow;
 				break;
 			default:
-				Debug.Log("Unknown direction character");
+				//Debug.Log("Unknown direction character");
+				//arrow.SetActive(false);
 				break;
 		}
 
