@@ -2,63 +2,73 @@ using System;
 using UnityEngine;
 using System.Collections;
 
-public enum Direction {
+public enum Direction
+{
 
-	Left = 0,
-	Up = -90,
-	Right = 180,
-	Down = 90
+  Left = 0,
+  Up = -90,
+  Right = 180,
+  Down = 90
 
 };
 
-public class Arrow : MonoBehaviour {
+public class Arrow : MonoBehaviour
+{
 
-	public Direction Direction;
-	public Vector2 Position;
-	public KeyCode CorrectKeyCode;
+  public Direction Direction;
+  public Vector2 Position;
+  public KeyCode CorrectKeyCode;
 
-	private Animator _anim;
-	private GameManagerScript _gms;
+  private Animator _anim;
 
-	private bool _isActive = false;
-	private bool _isSuccess = false;
+  private bool _isActive = false;
+  public bool isSuccess = false;
 
-	private float _startTime;
+  private float _startTime;
 
-	void Start() {
-		_anim = GetComponent<Animator>();
-		transform.rotation = Quaternion.Euler(0, 0, (float) Direction);
-//		_gms = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
-		_startTime = Time.time;
+  void Start()
+  {
+    _anim = GetComponent<Animator>();
+    transform.rotation = Quaternion.Euler(0, 0, (float)Direction);
+    _startTime = Time.time;
 
-	}
+  }
 
-	void Update() {
-//		if (_gms.GameIsActive != true || _isActive == false) {
-//			return;
-//		}
+  void Update()
+  {
+    if (!_isActive)
+    {
+      return;
+    }
 
-		if (_isActive && Input.GetKeyDown(CorrectKeyCode)) {
+    if (Input.GetKeyDown(CorrectKeyCode))
+    {
+      isSuccess = true;
 
-			_isSuccess = false;
-			_anim.SetTrigger("success");
-		}
-	}
+      int score = GameManager.instance.score + 1;
+      GameManager.instance.updateScore(score);
+      _anim.SetTrigger("success");
+    }
+    else if (Input.anyKeyDown && !Input.GetKeyDown("w") && !Input.GetKeyDown("a") && !Input.GetKeyDown("s") && !Input.GetKeyDown("d"))
+    {
+      isSuccess = false;
+      _anim.SetTrigger("fail");
+    }
+  }
 
-	void OnTriggerEnter2D(Collider2D col) {
-//		Debug.Log(col.gameObject.name + " : " + gameObject.name + " : " + (Time.time - _startTime));
-		_isActive = true;
-	}
+  void OnTriggerEnter2D(Collider2D col)
+  {
+    _isActive = true;
+  }
 
-	void OnTriggerExit2D(Collider2D col) {
+  void OnTriggerExit2D(Collider2D col)
+  {
 
-		if (!_isSuccess) {
-			_anim.SetTrigger("fail");
-		}
-
-		_isActive = false;
-
-//		Debug.Log("EXIT" + col.gameObject.name + " : " + gameObject.name + " : " + (Time.time - _startTime));
-	}
+    if (!isSuccess)
+    {
+      _anim.SetTrigger("fail");
+    }
+    _isActive = false;
+  }
 
 }

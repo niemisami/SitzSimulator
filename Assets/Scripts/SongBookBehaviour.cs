@@ -29,13 +29,10 @@ public class SongBookBehaviour : MonoBehaviour {
     private float startTime;
     private float elapsedTime;
 
-    private GameManagerScript GMS;
     private Vector3 startPositionTemp;
 
     // Use this for initialization
     void Start () {
-        GMS = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
-
         //initialization for input field
         var se = new InputField.SubmitEvent();
         se.AddListener(setBPM);
@@ -58,7 +55,7 @@ public class SongBookBehaviour : MonoBehaviour {
 	void Update () {
 
 
-        if (GMS.GameIsActive == false)//resets the time while count down and resets position
+        if (GameManager.instance.GameIsActive == false)//resets the time while count down and resets position
         {
             elapsedTime = 0;
             startTime = Time.time;
@@ -69,7 +66,7 @@ public class SongBookBehaviour : MonoBehaviour {
 
         }
 
-        if (GMS.GameIsActive == true)
+        if (GameManager.instance.GameIsActive == true)
         {
             if (elapsedTime == 0)//plays the first metronome click and starts helan går
             {

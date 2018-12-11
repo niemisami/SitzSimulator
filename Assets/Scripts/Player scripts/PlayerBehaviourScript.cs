@@ -25,7 +25,7 @@ public class PlayerBehaviourScript: MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-        GMS = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
+        GMS = GameObject.Find("GameManagerOld").GetComponent<GameManagerScript>();
         balanceText.text = "";
         centerPointOscillationAmount = 0.1F * centerPointSpeed;
 }
@@ -33,7 +33,7 @@ public class PlayerBehaviourScript: MonoBehaviour {
     void Update()
     {
 
-        if (GMS.GameIsActive == true)
+        if (GameManager.instance.GameIsActive == true)
         {
 
 

@@ -11,7 +11,6 @@ public class AudioScript : MonoBehaviour {
     public static float volume = 1;
     public static AudioSource audioSource;
     public static bool songIsPlaying = false;
-    private GameManagerScript GMS;
     public GameObject endGameScreen;
 
     // Use this for initialization
@@ -39,16 +38,13 @@ public class AudioScript : MonoBehaviour {
 
     private void Update()
     {
-
         if (!audioSource.isPlaying && songIsPlaying )//Pauses game after song has ended
         {
-            GMS = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
-            GMS.GameIsActive = false;
+            GameManager.instance.gameOver();
             print("Game paused because song has ended");
             songIsPlaying = false;
             endGameScreen.SetActive(true);
         }
-
     }
 
     public static void playSong()//plays the song

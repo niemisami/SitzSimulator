@@ -25,8 +25,6 @@ public class BalanceScript : MonoBehaviour
   private const float CorrectionSpeed = 0.5F; //Adjusts players ability to correct 
   private const float OscFrequency = 4;   //Character oscillation frequency
 
-  private GameManagerScript GMS;
-
   private PlayerFallScript PFS;
     public AudioSource AS;
 
@@ -42,16 +40,13 @@ public class BalanceScript : MonoBehaviour
     CenterPointSlider.value = 0;
     RotationDegree = 0;
 
-    GMS = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
     PFS = GameObject.Find("Player").GetComponent<PlayerFallScript>();
-
-
     }
 
   // Update is called once per frame
   void FixedUpdate()
   {
-    if (GMS.GameIsActive != true)
+    if (GameManager.instance.GameIsActive != true)
     {
       return;
     }
@@ -83,7 +78,7 @@ public class BalanceScript : MonoBehaviour
         {
             //RotationDegree = RotationBoundary;
             RotationDegree = 0;
-            GMS.GameIsActive = false;
+            GameManager.instance.gameOver();
             PFS.fallingToTheRight = true;
             AS.Stop();
 
@@ -92,7 +87,7 @@ public class BalanceScript : MonoBehaviour
         {
             //RotationDegree = -RotationBoundary;
             RotationDegree = 0;
-            GMS.GameIsActive = false;
+            GameManager.instance.gameOver();
             PFS.fallingToTheLeft = true;
             AS.Stop();
 
