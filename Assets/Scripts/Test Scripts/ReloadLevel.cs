@@ -16,10 +16,12 @@ public class ReloadLevel : MonoBehaviour {
 	}
     public void reloadLevel()
     {
-        Application.LoadLevel(Application.loadedLevel);
+        GameObject.Find("level changer").GetComponent<LevelCreaterScript>().FadeToLevel("ITGD");
+        //Application.LoadLevel(Application.loadedLevel);
     }
     public void backToMenu()
     {
-        SceneManager.LoadScene("Menu");
+        GameObject.Find("level changer").GetComponent<LevelCreaterScript>().FadeToLevel("Menu");
+        //SceneManager.LoadScene("Menu");
     }
 }

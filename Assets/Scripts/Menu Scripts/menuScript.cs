@@ -4,11 +4,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+
 public class menuScript : MonoBehaviour {
 
     public GameObject MenuScreen;
     public GameObject OptionsScreen;
     public Slider volumeSlider;
+    private LevelCreaterScript levelCreater;   
     private void Start()
     {
         MenuScreen.SetActive(true);
@@ -17,7 +19,10 @@ public class menuScript : MonoBehaviour {
 
     public void playGame()
     {
-        SceneManager.LoadScene("ITGD");
+
+        GameObject.Find("level changer").GetComponent<LevelCreaterScript>().FadeToLevel("ITGD");
+        //levelCreater.FadeToLevel("ITGD");
+        //SceneManager.LoadScene("ITGD");
     }
     public void goToOptions()
     {

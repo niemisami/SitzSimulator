@@ -83,7 +83,7 @@ public class BalanceScript : MonoBehaviour
             AS.Stop();
 
         }
-        if (RotationDegree <= -RotationBoundary)
+        else if (RotationDegree <= -RotationBoundary)
         {
             //RotationDegree = -RotationBoundary;
             RotationDegree = 0;
@@ -92,11 +92,18 @@ public class BalanceScript : MonoBehaviour
             AS.Stop();
 
         }
-
+        else
+        {
+            //Update the transform
+            transform.rotation = Quaternion.Euler(0, 0, -RotationDegree);
+            BalanceSlider.value = RotationDegree;
+            BalanceText.text = PlayerSpeed.ToString();
+        }
     //Update the transform
+    /*
     transform.rotation = Quaternion.Euler(0, 0, -RotationDegree);
     BalanceSlider.value = RotationDegree;
     BalanceText.text = PlayerSpeed.ToString();
-
+    */
   }
 }
