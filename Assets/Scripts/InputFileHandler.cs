@@ -6,13 +6,15 @@ public class InputFileHandler {
 	
 	public Dictionary<float, char> MappingsDict { get; private set; }
 
-	private const string Path = "Assets/";
+    private string m_Path = Application.dataPath;
+
+    private const string Path = "Assets/";
 
 	public InputFileHandler(string fileName) {
 
 		if (!fileName.EndsWith(".txt")) fileName += ".txt";
 		
-		var inputFilePath = Directory.GetFiles(Path, fileName, SearchOption.AllDirectories)[0];
+		var inputFilePath = Directory.GetFiles(m_Path, fileName, SearchOption.AllDirectories)[0];
 		string[] data = File.ReadAllLines(inputFilePath);
 		
 		MappingsDict = new Dictionary<float, char>();
