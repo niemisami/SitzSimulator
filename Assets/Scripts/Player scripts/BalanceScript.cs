@@ -8,9 +8,9 @@ using UnityEngine.UI;
 
 public class BalanceScript : MonoBehaviour {
 
-	public Text BalanceText;
-	public Slider BalanceSlider;
-	public Slider CenterPointSlider;
+//	public Text BalanceText;
+//	public Slider BalanceSlider;
+//	public Slider CenterPointSlider;
 
 	public float PlayerSpeed;
 	public float OscillationSpeed;
@@ -38,8 +38,8 @@ public class BalanceScript : MonoBehaviour {
 	// Use this for initialization
 	void Start() {
 
-		BalanceSlider.value = 0;
-		CenterPointSlider.value = 0;
+//		BalanceSlider.value = 0;
+//		CenterPointSlider.value = 0;
 		RotationDegree = 0;
 
 	}
@@ -92,8 +92,8 @@ public class BalanceScript : MonoBehaviour {
 
 		//Update the transform
 		transform.rotation = Quaternion.Euler(0, 0, -RotationDegree);
-		BalanceSlider.value = RotationDegree;
-		BalanceText.text = PlayerSpeed.ToString();
+//		BalanceSlider.value = RotationDegree;
+//		BalanceText.text = PlayerSpeed.ToString();
 
 	}
 
