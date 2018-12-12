@@ -118,7 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ea5b491ccd3b4fd98f376ddef7d3a49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 0
+  Direction: 0
   Position: {x: 0, y: 0}
   CorrectKeyCode: 0
   isSuccess: 0
@@ -157,7 +157,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 36862dbbd609f4d74948c72ba5797b9e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -165,6 +165,6 @@ SpriteRenderer:
   m_Size: {x: 0.7733333, y: 0.7}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0

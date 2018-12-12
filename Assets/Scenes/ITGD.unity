@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.49641287, b: 0.5748173, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3914,10 +3914,6 @@ MonoBehaviour:
   BottomLine: {fileID: 686960323}
   SongInputFileName: {fileID: 4900000, guid: 784bc49178cc2aa41a5205bdc2424aa2, type: 3}
   Bpm: 120
-  spriteLeft: {fileID: 21300000, guid: 36862dbbd609f4d74948c72ba5797b9e, type: 3}
-  spriteUp: {fileID: 21300008, guid: 36862dbbd609f4d74948c72ba5797b9e, type: 3}
-  spriteRight: {fileID: 21300010, guid: 36862dbbd609f4d74948c72ba5797b9e, type: 3}
-  spriteDown: {fileID: 21300006, guid: 36862dbbd609f4d74948c72ba5797b9e, type: 3}
 --- !u!82 &995727577
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5509,10 +5505,6 @@ MonoBehaviour:
   BottomLine: {fileID: 0}
   SongInputFileName: {fileID: 4900000, guid: c80b354a07570db4990dcee28796e0ef, type: 3}
   Bpm: 120
-  spriteLeft: {fileID: 0}
-  spriteUp: {fileID: 0}
-  spriteRight: {fileID: 0}
-  spriteDown: {fileID: 0}
 --- !u!82 &1283858894
 AudioSource:
   m_ObjectHideFlags: 0
