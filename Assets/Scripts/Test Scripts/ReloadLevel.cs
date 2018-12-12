@@ -14,9 +14,17 @@ public class ReloadLevel : MonoBehaviour {
 	void Update () {
 		
 	}
+
+
+	public void NextLevel() {
+		SceneManager.LoadScene("Internationalen");
+	}
+	
+	
     public void reloadLevel()
     {
-        Application.LoadLevel(Application.loadedLevel);
+//        Application.LoadLevel(Application.loadedLevel);
+	    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     public void backToMenu()
     {

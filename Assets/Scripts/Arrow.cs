@@ -20,11 +20,16 @@ public class Arrow : MonoBehaviour
   public KeyCode CorrectKeyCode;
 
   private Animator _anim;
+  private GameManager _gameManager;
 
   private bool _isActive = false;
   public bool isSuccess = false;
 
   private float _startTime;
+
+  public void Init(GameManager injected) {
+    _gameManager = injected;
+  }
 
   void Start()
   {
@@ -44,10 +49,12 @@ public class Arrow : MonoBehaviour
     if (Input.GetKeyDown(CorrectKeyCode))
     {
       isSuccess = true;
-
-      int score = GameManager.instance.score + 1;
-      GameManager.instance.updateScore(score);
+      _gameManager.score++;
       _anim.SetTrigger("success");
+      
+      //Needs to be deactivated to ensure only one point per arrow
+      _isActive = false;
+      
     }
     else if (Input.anyKeyDown && !Input.GetKeyDown("w") && !Input.GetKeyDown("a") && !Input.GetKeyDown("s") && !Input.GetKeyDown("d"))
     {

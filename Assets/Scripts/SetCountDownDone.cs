@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class SetCountDownDone : MonoBehaviour {
 
+    private GameManager _gameManager;
+
+    public void Init(GameManager injected) {
+        _gameManager = injected;
+    }
+
     public void setCountDown()
     {
-        GameManager.instance.startGame();
+        _gameManager.startGame();
+        
     }
 }
