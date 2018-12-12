@@ -17,17 +17,20 @@ public class ReloadLevel : MonoBehaviour {
 
 
 	public void NextLevel() {
-		SceneManager.LoadScene("Internationalen");
-	}
+		//SceneManager.LoadScene("Internationalen");
+        GameObject.Find("level changer").GetComponent<LevelCreaterScript>().FadeToLevel("Internationalen");
+    }
 	
 	
     public void reloadLevel()
     {
 //        Application.LoadLevel(Application.loadedLevel);
-	    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+	    //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        GameObject.Find("level changer").GetComponent<LevelCreaterScript>().FadeToLevel(SceneManager.GetActiveScene().name);
     }
     public void backToMenu()
     {
-        SceneManager.LoadScene("Menu");
+        //SceneManager.LoadScene("Menu");
+        GameObject.Find("level changer").GetComponent<LevelCreaterScript>().FadeToLevel("Menu");
     }
 }
