@@ -24,7 +24,7 @@ public class BalanceScript : MonoBehaviour {
 	private const float MinSpeed = 0.5F;
 	private const float Slope = 0.25F; //Adjusts the gravity slope, higher is steeper
 	private const float CorrectionSpeed = 0.5F; //Adjusts players ability to correct 
-	private const float OscFrequency = 2; //Character oscillation frequency
+	private const float OscFrequency = 1; //Character oscillation frequency
 
 	private PlayerFallScript PFS;
 	private GameManager _gameManager;

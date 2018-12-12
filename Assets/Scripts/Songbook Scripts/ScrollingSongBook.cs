@@ -13,6 +13,8 @@ public class ScrollingSongBook : MonoBehaviour {
 	public GameObject ReferenceArrow;
 	public GameObject ReferenceDistance;
 	public GameObject EndLine;
+	public GameObject TopLine;
+	public GameObject BottomLine;
 	public TextAsset SongInputFileName;
 	public float Bpm;
 
@@ -26,7 +28,7 @@ public class ScrollingSongBook : MonoBehaviour {
 	private float _rowDistance;
 	private float _songLengthSeconds;
 	private float _worldDistanceBetweenRows;
-	private float _offset = 0.25f;
+	private float _offset = 0;
 	
 	private Dictionary<float, char> _mappedInputs;
 	private List<GameObject> _arrows = new List<GameObject>();
@@ -99,11 +101,9 @@ public class ScrollingSongBook : MonoBehaviour {
 	void FixedUpdate () {
 
 		if (_gameManager.GameIsActive == false) return;
-		
-		Cursor.transform.Translate(Vector3.right * _cursorVelocity * Time.deltaTime);
-		
+			
 		//Move cursor to the right using the cursors velocity
-//		_cursorBody.velocity = Vector2.right * _cursorVelocity;
+		Cursor.transform.Translate(Vector3.right * _cursorVelocity * Time.deltaTime);
 
 		if (Cursor.transform.position.x >= EndLine.transform.position.x + _offset) {
 			
@@ -113,6 +113,14 @@ public class ScrollingSongBook : MonoBehaviour {
 			//Move all arrows one line up
 			foreach (var arrow in _arrows) {
 				arrow.transform.Translate(Vector3.up * _worldDistanceBetweenRows, ReferenceArrow.transform);
+
+				if (arrow.transform.position.y < TopLine.transform.position.y &&
+				    arrow.transform.position.y > BottomLine.transform.position.y) {
+					arrow.gameObject.SetActive(true);
+				}
+				else {
+					arrow.gameObject.SetActive(false);
+				}
 			}
 		}
 
@@ -146,6 +154,10 @@ public class ScrollingSongBook : MonoBehaviour {
 		
 		body.transform.Translate(xVector, Cursor.transform); //Move new arrow right relative to cursor start pos
 		body.transform.Translate(yVector, ReferenceArrow.transform); //Move new arrow down relative to the reference
+		
+		if (arrow.transform.position.y < BottomLine.transform.position.y) {
+			arrow.gameObject.SetActive(false);
+		}
 		
 		switch (directionCharacter) {
 
