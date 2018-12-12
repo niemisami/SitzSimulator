@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class GameManager : MonoBehaviour
   public GameObject EndGame;
   public GameObject SongBook;
   public GameObject Player;
+  public GameObject scoreText;
   public bool GameIsActive = false;
   
   public int score { get; set; }
@@ -39,6 +41,7 @@ public class GameManager : MonoBehaviour
     SongBook.GetComponent<ScrollingSongBook>().Init(this);
     Player.GetComponent<BalanceScript>().Init(this);
     CountDown.GetComponent<SetCountDownDone>().Init(this);
+    scoreText.GetComponent<SetScoreText>().Init(this);
     EndGame.SetActive(false);
     
   }
@@ -50,13 +53,14 @@ public class GameManager : MonoBehaviour
   {
     GameIsActive = true;
     SongBook.GetComponent<ScrollingSongBook>().PlaySong();
-  }
+    }
 
   public void gameOver()
   {
     GameIsActive = false;
     print("Score: " + score + "/" + maxScore);
     SongBook.GetComponent<ScrollingSongBook>().StopSong();
+
     EndGame.SetActive(true);
     
   }
@@ -74,6 +78,7 @@ public class GameManager : MonoBehaviour
   {
     this.level = level;
   }
+
 
   void Update()
   {
