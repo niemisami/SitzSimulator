@@ -30,6 +30,7 @@ public class SongBookBehaviour : MonoBehaviour {
     private float elapsedTime;
 
     private Vector3 startPositionTemp;
+    private GameManager _gameManager;
 
     // Use this for initialization
     void Start () {
@@ -50,12 +51,13 @@ public class SongBookBehaviour : MonoBehaviour {
         StartPositionVector = transform.position;//GameObject.Find("Song book").transform.position;
         positionVector = StartPositionVector;
         rowPositionVector = StartPositionVector;
+        
     }
 	// Update is called once per frame
 	void Update () {
 
 
-        if (GameManager.instance.GameIsActive == false)//resets the time while count down and resets position
+        if (_gameManager.GameIsActive == false)//resets the time while count down and resets position
         {
             elapsedTime = 0;
             startTime = Time.time;
@@ -66,7 +68,7 @@ public class SongBookBehaviour : MonoBehaviour {
 
         }
 
-        if (GameManager.instance.GameIsActive == true)
+        if (_gameManager.GameIsActive == true)
         {
             if (elapsedTime == 0)//plays the first metronome click and starts helan går
             {
