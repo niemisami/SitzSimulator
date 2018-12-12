@@ -15,7 +15,7 @@ public enum Direction
 public class Arrow : MonoBehaviour
 {
 
-  public Direction Direction;
+  public Direction direction;
   public Vector2 Position;
   public KeyCode CorrectKeyCode;
 
@@ -34,7 +34,7 @@ public class Arrow : MonoBehaviour
   void Start()
   {
     _anim = GetComponent<Animator>();
-    transform.rotation = Quaternion.Euler(0, 0, (float)Direction);
+    transform.rotation = Quaternion.Euler(0, 0, (float)direction);
     _startTime = Time.time;
 
   }

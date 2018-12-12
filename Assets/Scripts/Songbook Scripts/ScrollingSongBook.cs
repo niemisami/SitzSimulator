@@ -30,6 +30,11 @@ public class ScrollingSongBook : MonoBehaviour {
 	private float _worldDistanceBetweenRows;
 	private float _offset = 0;
 	
+  public Sprite spriteLeft;
+  public Sprite spriteUp;
+  public Sprite spriteRight;
+  public Sprite spriteDown;
+
 	private Dictionary<float, char> _mappedInputs;
 	private List<GameObject> _arrows = new List<GameObject>();
 	
@@ -154,34 +159,42 @@ public class ScrollingSongBook : MonoBehaviour {
 		
 		body.transform.Translate(xVector, Cursor.transform); //Move new arrow right relative to cursor start pos
 		body.transform.Translate(yVector, ReferenceArrow.transform); //Move new arrow down relative to the reference
-		
-		if (arrow.transform.position.y < BottomLine.transform.position.y) {
-			arrow.gameObject.SetActive(false);
-		}
-		
+
+		arrow.gameObject.SetActive(false);
+
+
 		switch (directionCharacter) {
 
 			case 'W':
-				arrow.GetComponent<Arrow>().Direction = Direction.Up;
+				arrow.GetComponent<Arrow>().direction = Direction.Up;
 				arrow.GetComponent<Arrow>().CorrectKeyCode = KeyCode.UpArrow;
+				arrow.GetComponent<SpriteRenderer>().sprite = spriteLeft;
 				break;
 			case 'A':
-				arrow.GetComponent<Arrow>().Direction = Direction.Left;
+				arrow.GetComponent<Arrow>().direction = Direction.Left;
 				arrow.GetComponent<Arrow>().CorrectKeyCode = KeyCode.LeftArrow;
+				arrow.GetComponent<SpriteRenderer>().sprite = spriteUp;
 				break;
 			case 'S':
-				arrow.GetComponent<Arrow>().Direction = Direction.Down;
+				arrow.GetComponent<Arrow>().direction = Direction.Down;
 				arrow.GetComponent<Arrow>().CorrectKeyCode = KeyCode.DownArrow;
+				arrow.GetComponent<SpriteRenderer>().sprite = spriteRight;
 				break;
 			case 'D':
-				arrow.GetComponent<Arrow>().Direction = Direction.Right;
+				arrow.GetComponent<Arrow>().direction = Direction.Right;
 				arrow.GetComponent<Arrow>().CorrectKeyCode = KeyCode.RightArrow;
+				arrow.GetComponent<SpriteRenderer>().sprite = spriteDown;
 				break;
 			default:
 				//Debug.Log("Unknown direction character");
 				arrow.SetActive(false);
 				break;
+		}		
+
+		if (arrow.transform.position.y >= BottomLine.transform.position.y) {
+			arrow.gameObject.SetActive(true);
 		}
+		
 
 		_arrows.Add(arrow);
 	}
