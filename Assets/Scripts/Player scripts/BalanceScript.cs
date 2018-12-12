@@ -8,15 +8,11 @@ using UnityEngine.UI;
 
 public class BalanceScript : MonoBehaviour {
 
-    //	public Text BalanceText;
-    //	public Slider BalanceSlider;
-    //	public Slider CenterPointSlider;
-    public Image gameOverImage;
-    public Image youWinImage;
-    public Image patch;
-    public Image badge;
+//	public Text BalanceText;
+//	public Slider BalanceSlider;
+//	public Slider CenterPointSlider;
 
-    public float PlayerSpeed;
+	public float PlayerSpeed;
 	public float OscillationSpeed;
 	public float ScaledDegree; //scales 0-90 to 0-1
 	public float RotationDegree;
@@ -91,11 +87,8 @@ public class BalanceScript : MonoBehaviour {
 
 		if (Math.Abs(RotationDegree) >= RotationBoundary) {
 			_isFalling = true;
-            youWinImage.GetComponent<Image>().enabled = false;
-            gameOverImage.GetComponent<Image>().enabled = true;
-            patch.GetComponent<Image>().enabled = false;
-            badge.GetComponent<Image>().enabled = false;
-        }
+
+		}
 
 		//Update the transform
 		transform.rotation = Quaternion.Euler(0, 0, -RotationDegree);

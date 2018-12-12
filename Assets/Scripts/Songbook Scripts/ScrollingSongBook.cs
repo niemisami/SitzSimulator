@@ -5,12 +5,10 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Experimental.UIElements;
-using UnityEngine.UI;
 
 public class ScrollingSongBook : MonoBehaviour {
-    public Sprite patch;
 
-    public AudioClip Song;
+	public AudioClip Song;
 	public GameObject Cursor;
 	public GameObject ReferenceArrow;
 	public GameObject ReferenceDistance;
@@ -128,8 +126,7 @@ public class ScrollingSongBook : MonoBehaviour {
 
 		if (Time.time - _startTime >= _songLengthSeconds) {
 			_gameManager.gameOver();
-            
-        }
+		}
 
 	}
 
