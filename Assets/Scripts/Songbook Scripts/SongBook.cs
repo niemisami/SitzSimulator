@@ -129,19 +129,19 @@ public class SongBook : MonoBehaviour {
 		switch (directionCharacter) {
 
 			case 'W':
-				arrow.GetComponent<Arrow>().Direction = Direction.Up;
+				arrow.GetComponent<Arrow>().direction = Direction.Up;
 				arrow.GetComponent<Arrow>().CorrectKeyCode = KeyCode.UpArrow;
 				break;
 			case 'A':
-				arrow.GetComponent<Arrow>().Direction = Direction.Left;
+				arrow.GetComponent<Arrow>().direction = Direction.Left;
 				arrow.GetComponent<Arrow>().CorrectKeyCode = KeyCode.LeftArrow;
 				break;
 			case 'S':
-				arrow.GetComponent<Arrow>().Direction = Direction.Down;
+				arrow.GetComponent<Arrow>().direction = Direction.Down;
 				arrow.GetComponent<Arrow>().CorrectKeyCode = KeyCode.DownArrow;
 				break;
 			case 'D':
-				arrow.GetComponent<Arrow>().Direction = Direction.Right;
+				arrow.GetComponent<Arrow>().direction = Direction.Right;
 				arrow.GetComponent<Arrow>().CorrectKeyCode = KeyCode.RightArrow;
 				break;
 			default:

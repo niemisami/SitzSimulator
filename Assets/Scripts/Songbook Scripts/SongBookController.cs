@@ -56,22 +56,22 @@ public class SongBookController : MonoBehaviour
         arrow.transform.localScale = new Vector3(0.5f, 0.5f, 0f);
         if (mappedChar == 'A')
         {
-          arrow.GetComponent<Arrow>().Direction = Direction.Left;
+          arrow.GetComponent<Arrow>().direction = Direction.Left;
           arrow.GetComponent<Arrow>().CorrectKeyCode = KeyCode.LeftArrow;
         }
         else if (mappedChar == 'W')
         {
-          arrow.GetComponent<Arrow>().Direction = Direction.Up;
+          arrow.GetComponent<Arrow>().direction = Direction.Up;
           arrow.GetComponent<Arrow>().CorrectKeyCode = KeyCode.UpArrow;
         }
         else if (mappedChar == 'D')
         {
-          arrow.GetComponent<Arrow>().Direction = Direction.Right;
+          arrow.GetComponent<Arrow>().direction = Direction.Right;
           arrow.GetComponent<Arrow>().CorrectKeyCode = KeyCode.RightArrow;
         }
         else if (mappedChar == 'S')
         {
-          arrow.GetComponent<Arrow>().Direction = Direction.Down;
+          arrow.GetComponent<Arrow>().direction = Direction.Down;
           arrow.GetComponent<Arrow>().CorrectKeyCode = KeyCode.DownArrow;
         }
         //        else
