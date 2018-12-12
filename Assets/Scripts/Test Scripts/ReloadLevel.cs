@@ -14,14 +14,20 @@ public class ReloadLevel : MonoBehaviour {
 	void Update () {
 		
 	}
+
+
+	public void NextLevel() {
+		SceneManager.LoadScene("Internationalen");
+	}
+	
+	
     public void reloadLevel()
     {
-        GameObject.Find("level changer").GetComponent<LevelCreaterScript>().FadeToLevel("ITGD");
-        //Application.LoadLevel(Application.loadedLevel);
+//        Application.LoadLevel(Application.loadedLevel);
+	    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     public void backToMenu()
     {
-        GameObject.Find("level changer").GetComponent<LevelCreaterScript>().FadeToLevel("Menu");
-        //SceneManager.LoadScene("Menu");
+        SceneManager.LoadScene("Menu");
     }
 }

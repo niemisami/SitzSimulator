@@ -11,3 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ITGD.unity
     guid: d76011a20117804449b1eabef44db2f6
+  - enabled: 1
+    path: Assets/Scenes/Internationalen.unity
+    guid: 3f0332ba7e2e1b14bb9821ff1c1c918e
+  m_configObjects: {}

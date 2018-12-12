@@ -13,6 +13,8 @@ public class AudioScript : MonoBehaviour {
     public static bool songIsPlaying = false;
     public GameObject endGameScreen;
 
+    private GameManager _gameManager;
+
     // Use this for initialization
     void Start () {
         //initialization for dropdown menu
@@ -40,7 +42,7 @@ public class AudioScript : MonoBehaviour {
     {
         if (!audioSource.isPlaying && songIsPlaying )//Pauses game after song has ended
         {
-            GameManager.instance.gameOver();
+            _gameManager.gameOver();
             print("Game paused because song has ended");
             songIsPlaying = false;
             endGameScreen.SetActive(true);

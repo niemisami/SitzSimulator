@@ -25,6 +25,7 @@ public class SongBookController : MonoBehaviour
   private Vector3 rowPadding = new Vector3(0F, 0.63f, 0F);
   private Vector3 arrowStartPosition = new Vector3(-2f, 3.53f, 0f);
   private Vector3 rowPositionVector = new Vector3(0f, 0f, 0f);
+  private GameManager _gameManager;
 
   void Awake()
   {
@@ -98,7 +99,7 @@ public class SongBookController : MonoBehaviour
         maxScore++;
       }
     }
-    GameManager.instance.setMaxScore(maxScore);
+    _gameManager.setMaxScore(maxScore);
   }
 
   void Update()

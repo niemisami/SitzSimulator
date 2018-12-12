@@ -25,12 +25,6 @@ public class SetBodyPartsPosition : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        /*
-        if (GameManager.instance.GameIsActive != true)
-        {
-            return;
-        }
-        */
         rotation = GameObject.Find("Player").transform.rotation;
 
         if (rotationON)

@@ -10,9 +10,9 @@ public class GameLoader : MonoBehaviour
   void Awake()
   {
 
-    if (GameManager.instance == null)
-    {
-      Instantiate(gameManager);
-    }
+//    if (GameManager.instance == null)
+//    {
+//      Instantiate(gameManager);
+//    }
   }
 }
