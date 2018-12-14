@@ -9,12 +9,14 @@ public class menuScript : MonoBehaviour {
 
     public GameObject MenuScreen;
     public GameObject OptionsScreen;
+    public GameObject CreditsScreen;
     public Slider volumeSlider;
     private LevelCreaterScript levelCreater;   
     private void Start()
     {
         MenuScreen.SetActive(true);
         OptionsScreen.SetActive(false);
+        CreditsScreen.SetActive(false);
     }
 
     public void playGame()
@@ -28,12 +30,21 @@ public class menuScript : MonoBehaviour {
     {
         MenuScreen.SetActive(false);
         OptionsScreen.SetActive(true);
+        CreditsScreen.SetActive(false);
+
+    }
+    public void goToCredits()
+    {
+        MenuScreen.SetActive(false);
+        OptionsScreen.SetActive(false);
+        CreditsScreen.SetActive(true);
 
     }
     public void BackToMenu()
     {
         MenuScreen.SetActive(true);
         OptionsScreen.SetActive(false);
+        CreditsScreen.SetActive(false);
     }
     public void SetVolume()
     {
